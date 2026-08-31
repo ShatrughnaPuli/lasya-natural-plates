@@ -50,7 +50,13 @@ const DEFAULT_GALLERY_ITEMS = [
 ];
 
 export default function AdminPortal({ onClose, showToast }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    try {
+      return sessionStorage.getItem('lasya_owner_authenticated') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
   const [activeTab, setActiveTab] = useState('inquiries'); // 'inquiries', 'samples', 'inventory', 'slideshow'
@@ -99,8 +105,11 @@ export default function AdminPortal({ onClose, showToast }) {
     const cleanInput = pinInput.trim().toLowerCase();
     const currentStored = storedPin.trim().toLowerCase();
     
-    // Strict passcode validation (no visible backdoors)
+    // Strict passcode validation
     if (cleanInput === currentStored || cleanInput === 'lasyanaturalplates@2026' || cleanInput === 'lasyanaturalplates2026') {
+      try {
+        sessionStorage.setItem('lasya_owner_authenticated', 'true');
+      } catch (err) {}
       setIsAuthenticated(true);
       setPinError(false);
       fetchAdminData();
@@ -109,6 +118,14 @@ export default function AdminPortal({ onClose, showToast }) {
       setPinError(true);
       showToast('Access Denied', 'Incorrect Security Passcode. Please check your secret PIN.', 'error');
     }
+  };
+
+  const handleLogout = () => {
+    try {
+      sessionStorage.removeItem('lasya_owner_authenticated');
+    } catch (e) {}
+    setIsAuthenticated(false);
+    showToast('Portal Locked', 'Session locked successfully.', 'info');
   };
 
   const handleSavePin = (e) => {
@@ -449,6 +466,22 @@ export default function AdminPortal({ onClose, showToast }) {
               }}
             >
               <i className="fa-solid fa-key"></i> {showPinChange ? 'Cancel' : 'Change Passcode'}
+            </button>
+            <button
+              onClick={handleLogout}
+              style={{
+                background: 'rgba(255,255,255,0.2)',
+                border: 'none',
+                color: '#ffffff',
+                padding: '6px 14px',
+                borderRadius: 'var(--radius-full)',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+              title="Lock portal immediately"
+            >
+              <i className="fa-solid fa-lock"></i> Lock
             </button>
             <button
               onClick={onClose}
