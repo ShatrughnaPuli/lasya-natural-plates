@@ -49,15 +49,27 @@ export default function Navbar({ onOpenAdmin }) {
         </ul>
 
         {/* Call to Action Button */}
-        <div className="header-cta-group">
+        <div className="header-cta-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <button
             onClick={onOpenAdmin}
-            className="btn btn-sm btn-secondary"
-            title="Owner Portal (Protected Access for Sir)"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px' }}
+            title="Portal Access"
+            aria-label="Staff & Owner Portal"
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '50%',
+              background: 'rgba(56, 102, 45, 0.08)',
+              border: '1px solid var(--color-border)',
+              color: 'var(--color-brand-primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              transition: 'all 0.2s ease'
+            }}
           >
-            <i className="fa-solid fa-lock" style={{ color: 'var(--color-earth-amber)' }}></i>
-            <span>Owner HQ</span>
+            <i className="fa-solid fa-lock"></i>
           </button>
 
           <a 

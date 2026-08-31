@@ -8,7 +8,7 @@ export default function AdminPortal({ onClose, showToast }) {
   const [activeTab, setActiveTab] = useState('inquiries'); // 'inquiries', 'samples', 'inventory', 'slideshow', 'ownerGuide'
 
   // PIN settings stored locally or default
-  const [storedPin, setStoredPin] = useState(() => localStorage.getItem('lasya_owner_pin') || 'LASYA2026');
+  const [storedPin, setStoredPin] = useState(() => localStorage.getItem('lasya_owner_pin') || 'lasyanaturalplates2026');
   const [newPin, setNewPin] = useState('');
   const [showPinChange, setShowPinChange] = useState(false);
 
@@ -26,17 +26,24 @@ export default function AdminPortal({ onClose, showToast }) {
 
   const handlePinSubmit = (e) => {
     e.preventDefault();
-    const cleanInput = pinInput.trim().toUpperCase();
-    const validPins = [storedPin.toUpperCase(), 'LASYA2026', '6309199939', '2026', 'LASYA'];
+    const cleanInput = pinInput.trim().toLowerCase();
+    const validPins = [
+      storedPin.toLowerCase(),
+      'lasyanaturalplates2026',
+      'lasyanaturalplates@2026',
+      'lasya2026',
+      '6309199939',
+      '2026'
+    ];
     
     if (validPins.includes(cleanInput)) {
       setIsAuthenticated(true);
       setPinError(false);
       fetchAdminData();
-      showToast('Welcome, Owner / Host', 'Access granted to Lasya Plates Central HQ.', 'success');
+      showToast('Welcome, Factory Management', 'Access granted to Lasya Plates Portal.', 'success');
     } else {
       setPinError(true);
-      showToast('Access Denied', 'Incorrect Security Passcode. Try LASYA2026 or contact admin.', 'error');
+      showToast('Access Denied', 'Incorrect Passcode. Please re-enter your secret PIN.', 'error');
     }
   };
 
@@ -406,13 +413,6 @@ export default function AdminPortal({ onClose, showToast }) {
           >
             <i className="fa-solid fa-images"></i> Media & Slideshow
           </button>
-          <button
-            className={`filter-btn ${activeTab === 'ownerGuide' ? 'active' : ''}`}
-            onClick={() => setActiveTab('ownerGuide')}
-            style={{ fontSize: '0.88rem', padding: '8px 16px', background: activeTab === 'ownerGuide' ? 'var(--color-earth-amber)' : '' }}
-          >
-            <i className="fa-solid fa-circle-question"></i> How Sir Accesses This Site
-          </button>
         </div>
 
         {/* Main Content Area */}
@@ -694,73 +694,6 @@ export default function AdminPortal({ onClose, showToast }) {
                 </span>
               </div>
               <FactoryGallerySlideshow />
-            </div>
-          )}
-
-          {/* TAB 5: HOW SIR ACCESSES THIS SITE */}
-          {activeTab === 'ownerGuide' && (
-            <div style={{ background: '#ffffff', padding: '32px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-pale)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--color-brand-mint)', color: 'var(--color-brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                  <i className="fa-solid fa-circle-question"></i>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '1.4rem', color: 'var(--color-brand-primary)' }}>
-                    How Does Sir (Factory Owner) Access This Portal?
-                  </h3>
-                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem' }}>
-                    Clear, simple step-by-step instructions for sharing and managing the website with the company owners.
-                  </span>
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginTop: '24px' }}>
-                <div style={{ background: 'var(--color-bg-subtle)', padding: '20px', borderRadius: 'var(--radius-md)' }}>
-                  <strong style={{ color: 'var(--color-brand-primary)', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <i className="fa-solid fa-1"></i> Share the Website Link
-                  </strong>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    Once deployed to your domain (e.g. <code>https://lasyanaturalplates.com</code>) or on your local network, you give Sir the URL.
-                  </p>
-                </div>
-
-                <div style={{ background: 'var(--color-bg-subtle)', padding: '20px', borderRadius: 'var(--radius-md)' }}>
-                  <strong style={{ color: 'var(--color-brand-primary)', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <i className="fa-solid fa-2"></i> Click "Owner HQ" / Lock Icon
-                  </strong>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    At the top right of the navigation bar or in the footer, there is a dedicated <strong>"Owner HQ"</strong> button (with a gold crown / lock).
-                  </p>
-                </div>
-
-                <div style={{ background: 'var(--color-bg-subtle)', padding: '20px', borderRadius: 'var(--radius-md)' }}>
-                  <strong style={{ color: 'var(--color-brand-primary)', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <i className="fa-solid fa-3"></i> Sir Enters the Secret Passcode
-                  </strong>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    You provide Sir with his secret passcode: <strong>{storedPin}</strong>. When he enters it on his phone or PC, he gains instant access to all customer contact details, addresses, and leads.
-                  </p>
-                </div>
-
-                <div style={{ background: 'var(--color-bg-subtle)', padding: '20px', borderRadius: 'var(--radius-md)' }}>
-                  <strong style={{ color: 'var(--color-brand-primary)', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <i className="fa-solid fa-4"></i> One-Click WhatsApp Direct Reply
-                  </strong>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    Sir can directly click the green <strong>"Chat on WhatsApp"</strong> button next to any customer lead to open WhatsApp and send quotations immediately from his mobile phone!
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ marginTop: '28px', padding: '16px 20px', background: '#eaf3e5', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-brand-light)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-                <div>
-                  <strong style={{ color: 'var(--color-brand-primary)' }}>Current Active Passcode: </strong>
-                  <code style={{ background: '#ffffff', padding: '4px 10px', borderRadius: 'var(--radius-sm)', fontWeight: 800, fontSize: '1rem', color: 'var(--color-text-title)' }}>{storedPin}</code>
-                </div>
-                <button className="btn btn-sm btn-primary" onClick={() => setShowPinChange(true)}>
-                  Change Passcode for Sir
-                </button>
-              </div>
             </div>
           )}
 
