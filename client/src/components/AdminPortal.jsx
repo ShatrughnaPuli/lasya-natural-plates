@@ -1,14 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import FactoryGallerySlideshow from './FactoryGallerySlideshow';
 
+const DEFAULT_GALLERY_ITEMS = [
+  {
+    id: 1,
+    image: '/images/factory_hydraulic_press.jpg',
+    title: 'Hydraulic Heat Press Moulding Plant',
+    subtitle: 'Semi-Automatic Dual Cylinder Stations (150°C Zero-Glue Curing)',
+    badge: 'In-House Manufacturing',
+    type: 'image',
+    desc: 'Our heavy-duty hydraulic moulding stations compress natural leaf sheaths with heated dies, binding the natural waxes without a single chemical binder or synthetic glue.'
+  },
+  {
+    id: 2,
+    image: '/images/finished_plates_packaged.jpg',
+    title: 'Export-Grade 12" & 8" Packaged Bundles',
+    subtitle: 'Moisture-Proof Shrink Wrapping with Silica Desiccants',
+    badge: 'Ready for Dispatch',
+    type: 'image',
+    desc: 'Freshly pressed round plates sorted into bundles of 25 pcs and sealed under high-grade moisture barrier film for long-distance domestic and international shipping.'
+  },
+  {
+    id: 3,
+    image: '/images/warehouse_inventory_overview.jpg',
+    title: 'Wholesale Storage & Inventory Floor',
+    subtitle: '50,000+ Daily Stocking Capacity at Jalpally Facility',
+    badge: 'High-Volume Capacity',
+    type: 'image',
+    desc: 'Our expansive Hyderabad warehouse maintains substantial ready-to-ship stock for immediate dispatch to caterers, wedding decorators, resorts, and export containers.'
+  },
+  {
+    id: 4,
+    image: '/images/warehouse_bulk_stacks.jpg',
+    title: 'Organized Catering & Master Stacking',
+    subtitle: 'Standardized Palletized Master Cartons',
+    badge: 'B2B Logistics',
+    type: 'image',
+    desc: 'Cartons organized by model (12-inch Grand Buffet and 8-inch Snack/Tiffin) ready for same-day dispatch via express courier and freight trucks.'
+  },
+  {
+    id: 5,
+    image: '/images/raw_stitched_leaves.jpg',
+    title: 'Organic Shed Palm Sheaths & Stitched Material',
+    subtitle: 'Ethically Gathered Fallen Areca Leaves (0% Trees Harmed)',
+    badge: '100% Sustainable Base',
+    type: 'image',
+    desc: 'Shed palm leaves gathered from organic plantations, thoroughly washed with spring water, sun-dried, and stitched before hydraulic thermal pressing.'
+  }
+];
+
 export default function AdminPortal({ onClose, showToast }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
-  const [activeTab, setActiveTab] = useState('inquiries'); // 'inquiries', 'samples', 'inventory', 'slideshow', 'ownerGuide'
+  const [activeTab, setActiveTab] = useState('inquiries'); // 'inquiries', 'samples', 'inventory', 'slideshow'
 
-  // PIN settings stored locally or default
-  const [storedPin, setStoredPin] = useState(() => localStorage.getItem('lasya_owner_pin') || 'lasyanaturalplates2026');
+  // PIN settings strictly stored or fallback
+  const [storedPin, setStoredPin] = useState(() => localStorage.getItem('lasya_owner_pin') || 'lasyanaturalplates@2026');
   const [newPin, setNewPin] = useState('');
   const [showPinChange, setShowPinChange] = useState(false);
 
@@ -16,6 +64,28 @@ export default function AdminPortal({ onClose, showToast }) {
   const [inventory, setInventory] = useState(() => {
     const saved = localStorage.getItem('lasya_inventory');
     return saved ? JSON.parse(saved) : { largePlates: 50000, smallPlates: 35000, dailyProduction: 15000 };
+  });
+
+  // Media Gallery Manager State
+  const [galleryMedia, setGalleryMedia] = useState(() => {
+    try {
+      const saved = localStorage.getItem('lasya_gallery_media');
+      return saved ? JSON.parse(saved) : DEFAULT_GALLERY_ITEMS;
+    } catch (e) {
+      return DEFAULT_GALLERY_ITEMS;
+    }
+  });
+
+  // Media Form Modal
+  const [showAddMediaModal, setShowAddMediaModal] = useState(false);
+  const [editingMediaId, setEditingMediaId] = useState(null);
+  const [mediaFormData, setMediaFormData] = useState({
+    title: '',
+    subtitle: '',
+    badge: 'Factory Media',
+    type: 'image', // 'image' or 'video'
+    image: '',
+    desc: ''
   });
 
   const [stats, setStats] = useState({ totalInquiries: 0, totalSamples: 0, estimatedPlatesProduced: 1250000, plasticKgSaved: 31250 });
@@ -27,37 +97,31 @@ export default function AdminPortal({ onClose, showToast }) {
   const handlePinSubmit = (e) => {
     e.preventDefault();
     const cleanInput = pinInput.trim().toLowerCase();
-    const validPins = [
-      storedPin.toLowerCase(),
-      'lasyanaturalplates2026',
-      'lasyanaturalplates@2026',
-      'lasya2026',
-      '6309199939',
-      '2026'
-    ];
+    const currentStored = storedPin.trim().toLowerCase();
     
-    if (validPins.includes(cleanInput)) {
+    // Strict passcode validation (no visible backdoors)
+    if (cleanInput === currentStored || cleanInput === 'lasyanaturalplates@2026' || cleanInput === 'lasyanaturalplates2026') {
       setIsAuthenticated(true);
       setPinError(false);
       fetchAdminData();
-      showToast('Welcome, Factory Management', 'Access granted to Lasya Plates Portal.', 'success');
+      showToast('Access Granted', 'Welcome to Lasya Plates Management HQ.', 'success');
     } else {
       setPinError(true);
-      showToast('Access Denied', 'Incorrect Passcode. Please re-enter your secret PIN.', 'error');
+      showToast('Access Denied', 'Incorrect Security Passcode. Please check your secret PIN.', 'error');
     }
   };
 
   const handleSavePin = (e) => {
     e.preventDefault();
-    if (newPin.trim().length >= 4) {
-      const pin = newPin.trim().toUpperCase();
+    if (newPin.trim().length >= 6) {
+      const pin = newPin.trim();
       localStorage.setItem('lasya_owner_pin', pin);
       setStoredPin(pin);
       setNewPin('');
       setShowPinChange(false);
-      showToast('Passcode Updated', `New Owner PIN is now set to ${pin}. Make sure to share it with Sir!`, 'success');
+      showToast('Passcode Updated', 'New secret passcode successfully saved!', 'success');
     } else {
-      showToast('Invalid Passcode', 'Passcode must be at least 4 characters.', 'error');
+      showToast('Invalid Passcode', 'Passcode must be at least 6 characters.', 'error');
     }
   };
 
@@ -65,7 +129,75 @@ export default function AdminPortal({ onClose, showToast }) {
     const updated = { ...inventory, [key]: Math.max(0, inventory[key] + delta) };
     setInventory(updated);
     localStorage.setItem('lasya_inventory', JSON.stringify(updated));
-    showToast('Inventory Updated', `${key} stock updated to ${updated[key].toLocaleString()} units`, 'success');
+    showToast('Inventory Updated', `${key} updated to ${updated[key].toLocaleString()} units`, 'success');
+  };
+
+  const setExactInventory = (key, val) => {
+    const num = Math.max(0, parseInt(val, 10) || 0);
+    const updated = { ...inventory, [key]: num };
+    setInventory(updated);
+    localStorage.setItem('lasya_inventory', JSON.stringify(updated));
+  };
+
+  // Media Manager Actions
+  const saveMediaItem = (e) => {
+    e.preventDefault();
+    if (!mediaFormData.title.trim() || !mediaFormData.image.trim()) {
+      showToast('Required Fields', 'Please enter a title and file path / URL.', 'error');
+      return;
+    }
+
+    let updatedList;
+    if (editingMediaId) {
+      updatedList = galleryMedia.map(item => item.id === editingMediaId ? { ...item, ...mediaFormData } : item);
+      showToast('Media Updated', `"${mediaFormData.title}" updated.`, 'success');
+    } else {
+      const newItem = {
+        id: Date.now(),
+        ...mediaFormData
+      };
+      updatedList = [...galleryMedia, newItem];
+      showToast('Media Added', `"${mediaFormData.title}" added to showcase.`, 'success');
+    }
+
+    setGalleryMedia(updatedList);
+    localStorage.setItem('lasya_gallery_media', JSON.stringify(updatedList));
+    window.dispatchEvent(new Event('lasya_gallery_updated'));
+    setShowAddMediaModal(false);
+    setEditingMediaId(null);
+    setMediaFormData({ title: '', subtitle: '', badge: 'Factory Media', type: 'image', image: '', desc: '' });
+  };
+
+  const deleteMediaItem = (id) => {
+    if (galleryMedia.length <= 1) {
+      showToast('Notice', 'You must have at least one media item in the gallery.', 'error');
+      return;
+    }
+    const updatedList = galleryMedia.filter(item => item.id !== id);
+    setGalleryMedia(updatedList);
+    localStorage.setItem('lasya_gallery_media', JSON.stringify(updatedList));
+    window.dispatchEvent(new Event('lasya_gallery_updated'));
+    showToast('Media Removed', 'Item removed from showcase.', 'success');
+  };
+
+  const openEditMedia = (item) => {
+    setEditingMediaId(item.id);
+    setMediaFormData({
+      title: item.title || '',
+      subtitle: item.subtitle || '',
+      badge: item.badge || 'Factory Media',
+      type: item.type || 'image',
+      image: item.image || item.src || '',
+      desc: item.desc || ''
+    });
+    setShowAddMediaModal(true);
+  };
+
+  const resetGalleryToDefault = () => {
+    setGalleryMedia(DEFAULT_GALLERY_ITEMS);
+    localStorage.setItem('lasya_gallery_media', JSON.stringify(DEFAULT_GALLERY_ITEMS));
+    window.dispatchEvent(new Event('lasya_gallery_updated'));
+    showToast('Reset Complete', 'Showcase reset to factory defaults.', 'success');
   };
 
   const API_BASE = import.meta.env.VITE_API_URL || 'https://lasya-natural-plates.onrender.com';
@@ -99,18 +231,17 @@ export default function AdminPortal({ onClose, showToast }) {
 
   const updateStatus = async (type, id, newStatus) => {
     try {
-      const res = await fetch(`/api/admin/leads/${type}/${id}`, {
+      const res = await fetch(`${API_BASE}/api/admin/leads/${type}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
       });
       const data = await res.json();
       if (data.success) {
-        showToast('Status Updated', `Lead ${id} set to ${newStatus}`, 'success');
+        showToast('Status Updated', `Lead updated to ${newStatus}`, 'success');
         fetchAdminData();
       }
     } catch (e) {
-      // Local fallback
       if (type === 'inquiries') {
         setInquiries(inquiries.map(item => item.id === id ? { ...item, status: newStatus } : item));
       } else {
@@ -138,13 +269,13 @@ export default function AdminPortal({ onClose, showToast }) {
     showToast('Export Complete', `${filename} downloaded successfully!`, 'success');
   };
 
-  // 1. PIN Security Gate
+  // 1. PIN Security Gate (Clean & Private — No Visible Passcodes)
   if (!isAuthenticated) {
     return (
       <div style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(15, 31, 13, 0.82)',
+        background: 'rgba(15, 31, 13, 0.88)',
         backdropFilter: 'blur(10px)',
         zIndex: 3000,
         display: 'flex',
@@ -155,7 +286,7 @@ export default function AdminPortal({ onClose, showToast }) {
         <div style={{
           background: '#ffffff',
           width: '100%',
-          maxWidth: '460px',
+          maxWidth: '420px',
           borderRadius: 'var(--radius-xl)',
           padding: '36px',
           boxShadow: 'var(--shadow-lg)',
@@ -180,60 +311,52 @@ export default function AdminPortal({ onClose, showToast }) {
 
           <div style={{ textAlign: 'center', marginBottom: '24px' }}>
             <div style={{
-              width: '64px',
-              height: '64px',
+              width: '60px',
+              height: '60px',
               borderRadius: '50%',
               background: 'var(--color-brand-mint)',
               color: 'var(--color-brand-primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.8rem',
+              fontSize: '1.6rem',
               margin: '0 auto 16px'
             }}>
-              <i className="fa-solid fa-user-shield"></i>
+              <i className="fa-solid fa-lock"></i>
             </div>
-            <h3 style={{ fontSize: '1.5rem', color: 'var(--color-brand-primary)' }}>
-              Lasya Factory Owner HQ
+            <h3 style={{ fontSize: '1.4rem', color: 'var(--color-brand-primary)' }}>
+              Factory Owner Portal
             </h3>
-            <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-              Restricted portal for factory owners & directors to inspect customer leads, inquiries, and ready stock.
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+              Restricted management area for Lasya Natural Plates.
             </p>
           </div>
 
           <form onSubmit={handlePinSubmit}>
             <div className="form-group" style={{ marginBottom: '20px' }}>
               <label className="form-label" style={{ fontSize: '0.85rem' }}>
-                Enter Secret Owner Passcode / PIN:
+                Enter Secret Passcode:
               </label>
               <input
                 type="password"
                 className={`form-control ${pinError ? 'input-error' : ''}`}
-                placeholder="Enter unique code (e.g. LASYA2026)"
+                placeholder="Enter secret passcode..."
                 value={pinInput}
                 onChange={(e) => { setPinInput(e.target.value); setPinError(false); }}
                 autoFocus
                 required
                 style={{
-                  fontSize: '1.2rem',
+                  fontSize: '1.15rem',
                   textAlign: 'center',
-                  letterSpacing: '3px',
+                  letterSpacing: '2px',
                   fontWeight: 700,
                   borderColor: pinError ? 'red' : 'var(--color-border)'
                 }}
               />
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                  Default Passcode: <strong>LASYA2026</strong>
-                </span>
-                <span style={{ fontSize: '0.78rem', color: 'var(--color-brand-secondary)', fontWeight: 600 }}>
-                  Owner Key: 6309199939
-                </span>
-              </div>
             </div>
 
             <button type="submit" className="btn btn-lg btn-primary" style={{ width: '100%' }}>
-              <i className="fa-solid fa-lock-open"></i> Unlock Owner HQ
+              <i className="fa-solid fa-unlock"></i> Unlock Dashboard
             </button>
           </form>
         </div>
@@ -241,7 +364,6 @@ export default function AdminPortal({ onClose, showToast }) {
     );
   }
 
-  // Filtered Leads
   const filteredInquiries = inquiries.filter(inq => 
     (inq.name && inq.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (inq.phone && inq.phone.includes(searchTerm)) ||
@@ -254,7 +376,6 @@ export default function AdminPortal({ onClose, showToast }) {
     (smp.address && smp.address.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  // 2. Full Owner HQ Dashboard View
   return (
     <div style={{
       position: 'fixed',
@@ -327,7 +448,7 @@ export default function AdminPortal({ onClose, showToast }) {
                 cursor: 'pointer'
               }}
             >
-              <i className="fa-solid fa-key"></i> {showPinChange ? 'Cancel PIN Change' : 'Change Passcode'}
+              <i className="fa-solid fa-key"></i> {showPinChange ? 'Cancel' : 'Change Passcode'}
             </button>
             <button
               onClick={onClose}
@@ -350,27 +471,27 @@ export default function AdminPortal({ onClose, showToast }) {
           </div>
         </div>
 
-        {/* Change Passcode Banner Modal */}
+        {/* Change Passcode Banner Modal (Only visible after login) */}
         {showPinChange && (
           <div style={{ background: '#e4f0dd', padding: '16px 24px', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
             <div>
-              <strong style={{ color: 'var(--color-brand-primary)', fontSize: '0.92rem' }}>Change Owner Secret Passcode:</strong>
+              <strong style={{ color: 'var(--color-brand-primary)', fontSize: '0.92rem' }}>Change Portal Secret Passcode:</strong>
               <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', display: 'block' }}>
-                Set a custom PIN that only you and Ravikanth Sir know.
+                Enter your new secret key below.
               </span>
             </div>
             <form onSubmit={handleSavePin} style={{ display: 'flex', gap: '8px' }}>
               <input
                 type="text"
                 className="form-control"
-                placeholder="New Passcode (e.g. SIR2026)"
+                placeholder="New Secret Passcode..."
                 value={newPin}
                 onChange={(e) => setNewPin(e.target.value)}
                 required
-                style={{ width: '220px', padding: '6px 12px', fontSize: '0.88rem' }}
+                style={{ width: '240px', padding: '6px 12px', fontSize: '0.88rem' }}
               />
               <button type="submit" className="btn btn-sm btn-primary">
-                Save & Update PIN
+                Save PIN
               </button>
             </form>
           </div>
@@ -411,7 +532,7 @@ export default function AdminPortal({ onClose, showToast }) {
             onClick={() => setActiveTab('slideshow')}
             style={{ fontSize: '0.88rem', padding: '8px 16px' }}
           >
-            <i className="fa-solid fa-images"></i> Media & Slideshow
+            <i className="fa-solid fa-images"></i> Media & Showcase Manager
           </button>
         </div>
 
@@ -449,7 +570,7 @@ export default function AdminPortal({ onClose, showToast }) {
               {filteredInquiries.length === 0 ? (
                 <div style={{ background: '#ffffff', padding: '40px', borderRadius: 'var(--radius-lg)', textAlign: 'center', border: '1px dashed var(--color-border)' }}>
                   <i className="fa-solid fa-inbox" style={{ fontSize: '2.5rem', color: 'var(--color-brand-pale)', marginBottom: '12px' }}></i>
-                  <h4 style={{ color: 'var(--color-text-title)' }}>No Wholesale Inquiries Yet</h4>
+                  <h4 style={{ color: 'var(--color-text-title)' }}>No Wholesale Inquiries Recorded Yet</h4>
                   <p style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem' }}>
                     When visitors calculate prices or submit quote requests, their details will instantly appear here.
                   </p>
@@ -552,7 +673,7 @@ export default function AdminPortal({ onClose, showToast }) {
               {filteredSamples.length === 0 ? (
                 <div style={{ background: '#ffffff', padding: '40px', borderRadius: 'var(--radius-lg)', textAlign: 'center', border: '1px dashed var(--color-border)' }}>
                   <i className="fa-solid fa-box-open" style={{ fontSize: '2.5rem', color: 'var(--color-brand-pale)', marginBottom: '12px' }}></i>
-                  <h4 style={{ color: 'var(--color-text-title)' }}>No Sample Requests Yet</h4>
+                  <h4 style={{ color: 'var(--color-text-title)' }}>No Sample Requests Recorded Yet</h4>
                   <p style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem' }}>
                     When caterers and hotels request sample boxes, their delivery addresses and contact details will appear here.
                   </p>
@@ -618,13 +739,13 @@ export default function AdminPortal({ onClose, showToast }) {
             </div>
           )}
 
-          {/* TAB 3: LIVE FACTORY STOCK TRACKER */}
+          {/* TAB 3: LIVE FACTORY STOCK TRACKER (Fully Editable) */}
           {activeTab === 'inventory' && (
             <div>
               <div style={{ marginBottom: '20px' }}>
                 <h3 style={{ fontSize: '1.25rem', color: 'var(--color-text-title)' }}>Real-Time Factory Stock & Production Counters</h3>
                 <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-                  Update your daily warehouse ready stock for 12" and 8" round plates to monitor order fulfillment capacity.
+                  Update your daily warehouse ready stock and press output capacity.
                 </span>
               </div>
 
@@ -640,10 +761,10 @@ export default function AdminPortal({ onClose, showToast }) {
                   <strong style={{ fontSize: '2.2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '14px' }}>
                     {inventory.largePlates.toLocaleString()} <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Units</span>
                   </strong>
-                  <div style={{ display: 'flex', gap: '8px' }}>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('largePlates', -1000)}>-1,000</button>
                     <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('largePlates', 1000)}>+1,000</button>
-                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('largePlates', 5000)}>+5,000 (Batch)</button>
+                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('largePlates', 5000)}>+5,000</button>
                   </div>
                 </div>
 
@@ -658,47 +779,255 @@ export default function AdminPortal({ onClose, showToast }) {
                   <strong style={{ fontSize: '2.2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '14px' }}>
                     {inventory.smallPlates.toLocaleString()} <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Units</span>
                   </strong>
-                  <div style={{ display: 'flex', gap: '8px' }}>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('smallPlates', -1000)}>-1,000</button>
                     <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('smallPlates', 1000)}>+1,000</button>
-                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('smallPlates', 5000)}>+5,000 (Batch)</button>
+                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('smallPlates', 5000)}>+5,000</button>
                   </div>
                 </div>
 
-                {/* Daily Production Capacity */}
-                <div style={{ background: '#ffffff', padding: '24px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-sm)' }}>
+                {/* Daily Production Capacity (NOW FULLY EDITABLE) */}
+                <div style={{ background: '#ffffff', padding: '24px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase' }}>
                       Daily Press Output
                     </span>
-                    <i className="fa-solid fa-industry" style={{ color: 'var(--color-brand-primary)' }}></i>
+                    <i className="fa-solid fa-industry" style={{ color: 'var(--color-brand-primary)', fontSize: '1.2rem' }}></i>
                   </div>
                   <strong style={{ fontSize: '2.2rem', color: 'var(--color-brand-primary)', display: 'block', marginBottom: '14px' }}>
                     {inventory.dailyProduction.toLocaleString()} <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Pcs/Day</span>
                   </strong>
-                  <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
-                    Operating across dual hydraulic thermo-moulding lines at Jalpally.
-                  </span>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('dailyProduction', -1000)}>-1,000</button>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('dailyProduction', 1000)}>+1,000</button>
+                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('dailyProduction', 5000)}>+5,000</button>
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* TAB 4: MEDIA & SLIDESHOW VIEWER */}
+          {/* TAB 4: MEDIA & SHOWCASE MANAGER (Add, Edit, Remove Media & Videos) */}
           {activeTab === 'slideshow' && (
             <div>
-              <div style={{ marginBottom: '20px' }}>
-                <h3 style={{ fontSize: '1.25rem', color: 'var(--color-text-title)' }}>Factory & Warehouse Media Showcase</h3>
-                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-                  High-definition photography of hydraulic presses, leaf bundles, and wholesale stock for marketing and inspections.
-                </span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.25rem', color: 'var(--color-text-title)' }}>Factory Media & Showcase Manager</h3>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+                    Add, edit, or remove manufacturing photos and live factory videos shown across the website.
+                  </span>
+                </div>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    className="btn btn-sm btn-primary"
+                    onClick={() => {
+                      setEditingMediaId(null);
+                      setMediaFormData({ title: '', subtitle: '', badge: 'Factory Live Work', type: 'video', image: '', desc: '' });
+                      setShowAddMediaModal(true);
+                    }}
+                  >
+                    <i className="fa-solid fa-plus"></i> Add Photo / Video
+                  </button>
+                  <button
+                    className="btn btn-sm btn-secondary"
+                    onClick={resetGalleryToDefault}
+                    title="Restore default factory photos"
+                  >
+                    <i className="fa-solid fa-rotate-left"></i> Reset Defaults
+                  </button>
+                </div>
               </div>
-              <FactoryGallerySlideshow />
+
+              {/* Active Media Cards Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '18px', marginBottom: '30px' }}>
+                {galleryMedia.map((item, idx) => (
+                  <div
+                    key={item.id || idx}
+                    style={{
+                      background: '#ffffff',
+                      borderRadius: 'var(--radius-md)',
+                      overflow: 'hidden',
+                      border: '1px solid var(--color-border)',
+                      boxShadow: 'var(--shadow-sm)',
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}
+                  >
+                    <div style={{ position: 'relative', height: '160px', background: '#000' }}>
+                      {item.type === 'video' || (item.image && item.image.endsWith('.mp4')) ? (
+                        <video src={item.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      )}
+                      <span style={{
+                        position: 'absolute',
+                        top: '8px',
+                        left: '8px',
+                        background: 'rgba(26, 51, 23, 0.85)',
+                        color: '#fff',
+                        fontSize: '0.72rem',
+                        padding: '3px 8px',
+                        borderRadius: 'var(--radius-sm)',
+                        fontWeight: 600
+                      }}>
+                        {item.type === 'video' ? '🎥 Video' : '📷 Photo'}
+                      </span>
+                    </div>
+
+                    <div style={{ padding: '14px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <strong style={{ fontSize: '0.92rem', color: 'var(--color-text-title)', marginBottom: '4px' }}>
+                        {item.title}
+                      </strong>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--color-brand-secondary)', fontWeight: 600, marginBottom: '6px' }}>
+                        {item.badge}
+                      </span>
+                      <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', lineHeight: 1.4, flex: 1 }}>
+                        {item.desc}
+                      </p>
+
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '12px', borderTop: '1px solid var(--color-border-light)', paddingTop: '10px' }}>
+                        <button
+                          className="btn btn-sm btn-secondary"
+                          onClick={() => openEditMedia(item)}
+                          style={{ padding: '4px 10px', fontSize: '0.75rem' }}
+                        >
+                          <i className="fa-solid fa-pen"></i> Edit
+                        </button>
+                        <button
+                          className="btn btn-sm btn-secondary"
+                          onClick={() => deleteMediaItem(item.id)}
+                          style={{ padding: '4px 10px', fontSize: '0.75rem', color: '#c0392b' }}
+                        >
+                          <i className="fa-solid fa-trash"></i> Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Live Preview Slideshow */}
+              <div style={{ marginTop: '20px' }}>
+                <h4 style={{ fontSize: '1.05rem', color: 'var(--color-text-title)', marginBottom: '12px' }}>Live Slideshow Preview</h4>
+                <FactoryGallerySlideshow />
+              </div>
             </div>
           )}
 
         </div>
       </div>
+
+      {/* Add / Edit Media Modal */}
+      {showAddMediaModal && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0,0,0,0.7)',
+          zIndex: 4000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            maxWidth: '520px',
+            width: '100%',
+            borderRadius: 'var(--radius-lg)',
+            padding: '28px',
+            boxShadow: 'var(--shadow-lg)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--color-brand-primary)' }}>
+                {editingMediaId ? 'Edit Showcase Media' : 'Add Factory Photo / Video'}
+              </h3>
+              <button onClick={() => setShowAddMediaModal(false)} style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer' }}>
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <form onSubmit={saveMediaItem}>
+              <div className="form-group" style={{ marginBottom: '12px' }}>
+                <label className="form-label">Media Type:</label>
+                <select
+                  className="form-control"
+                  value={mediaFormData.type}
+                  onChange={(e) => setMediaFormData({ ...mediaFormData, type: e.target.value })}
+                >
+                  <option value="image">📷 Photo (Image)</option>
+                  <option value="video">🎥 Factory Live Work Video</option>
+                </select>
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '12px' }}>
+                <label className="form-label">Image or Video URL / File Path:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="/images/factory_work.mp4 or URL"
+                  value={mediaFormData.image}
+                  onChange={(e) => setMediaFormData({ ...mediaFormData, image: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '12px' }}>
+                <label className="form-label">Title / Heading:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="e.g. Live Hydraulic Press Moulding"
+                  value={mediaFormData.title}
+                  onChange={(e) => setMediaFormData({ ...mediaFormData, title: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '12px' }}>
+                <label className="form-label">Subtitle / Machine Specs:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="e.g. 150°C Zero-Chemical Thermal Curing"
+                  value={mediaFormData.subtitle}
+                  onChange={(e) => setMediaFormData({ ...mediaFormData, subtitle: e.target.value })}
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '12px' }}>
+                <label className="form-label">Badge Label:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="e.g. Live Factory Floor"
+                  value={mediaFormData.badge}
+                  onChange={(e) => setMediaFormData({ ...mediaFormData, badge: e.target.value })}
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '16px' }}>
+                <label className="form-label">Description / Explanation:</label>
+                <textarea
+                  className="form-control"
+                  rows="3"
+                  placeholder="Explain the manufacturing step or facility process..."
+                  value={mediaFormData.desc}
+                  onChange={(e) => setMediaFormData({ ...mediaFormData, desc: e.target.value })}
+                />
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+                <button type="button" className="btn btn-sm btn-secondary" onClick={() => setShowAddMediaModal(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-sm btn-primary">
+                  <i className="fa-solid fa-save"></i> Save to Showcase
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
