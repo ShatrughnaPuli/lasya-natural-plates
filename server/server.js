@@ -284,6 +284,22 @@ app.get('/api/admin/export', (req, res) => {
   }
 });
 
+// Root Health Check Route
+app.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    message: '🌿 Lasya Natural Plates Official Backend API is Live & Healthy!',
+    facility: 'Jalpally, Hyderabad, India',
+    endpoints: {
+      stats: '/api/stats',
+      inquiries: '/api/inquiries',
+      samples: '/api/samples',
+      adminLeads: '/api/admin/leads'
+    },
+    ownerHelpline: '+91 6309199939 / +91 9603575915'
+  });
+});
+
 // Serve frontend build if in production
 const clientBuildPath = path.join(__dirname, '../client/dist');
 if (fs.existsSync(clientBuildPath)) {

@@ -14,8 +14,9 @@ export default function SampleKitSection({ showToast }) {
     e.preventDefault();
     setLoading(true);
 
+    const API_BASE = import.meta.env.VITE_API_URL || 'https://lasya-natural-plates.onrender.com';
     try {
-      const res = await fetch('/api/samples', {
+      const res = await fetch(`${API_BASE}/api/samples`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

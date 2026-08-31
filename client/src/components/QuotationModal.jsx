@@ -25,8 +25,9 @@ export default function QuotationModal({ isOpen, onClose, quoteData, showToast }
     e.preventDefault();
     setLoading(true);
 
+    const API_BASE = import.meta.env.VITE_API_URL || 'https://lasya-natural-plates.onrender.com';
     try {
-      const res = await fetch('/api/inquiries', {
+      const res = await fetch(`${API_BASE}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

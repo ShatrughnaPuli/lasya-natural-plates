@@ -61,12 +61,14 @@ export default function AdminPortal({ onClose, showToast }) {
     showToast('Inventory Updated', `${key} stock updated to ${updated[key].toLocaleString()} units`, 'success');
   };
 
+  const API_BASE = import.meta.env.VITE_API_URL || 'https://lasya-natural-plates.onrender.com';
+
   const fetchAdminData = async () => {
     setLoading(true);
     try {
       const [statsRes, leadsRes] = await Promise.all([
-        fetch('/api/stats').catch(() => null),
-        fetch('/api/admin/leads').catch(() => null)
+        fetch(`${API_BASE}/api/stats`).catch(() => fetch('/api/stats').catch(() => null)),
+        fetch(`${API_BASE}/api/admin/leads`).catch(() => fetch('/api/admin/leads').catch(() => null))
       ]);
 
       if (statsRes && statsRes.ok) {
