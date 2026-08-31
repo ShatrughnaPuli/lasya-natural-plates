@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin & Lead Management Portal | Lasya Natural Plates</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-nav {
+      background: #ffffff;
+      border-bottom: 1.5px solid var(--color-border);
+      padding: 16px 0;
+    }
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .admin-stat-card {
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .admin-stat-card .num {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--color-brand-primary);
+    }
+    .admin-stat-card .label {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+    .leads-table-card {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
+    }
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .leads-data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .leads-data-table th, .leads-data-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-light);
+      font-size: 0.88rem;
+    }
+    .leads-data-table th {
+      background: var(--color-bg-subtle);
+      color: var(--color-brand-primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.8rem;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .status-new { background: var(--color-brand-mint); color: var(--color-brand-primary); }
+    .status-contacted { background: #e8e2cf; color: #73591c; }
+    .status-quoted { background: #d4e8cb; color: #2e5426; }
+    .status-converted { background: #b9e3b1; color: #1e4518; }
+    @media (max-width: 900px) {
+      .admin-stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body style="background: var(--color-bg);">
+
+  <nav class="admin-nav">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="images/logo_hero.jpg" alt="Logo" style="width: 42px; height: 42px; border-radius: 50%;">
+        <div>
+          <strong style="font-size: 1.2rem; color: var(--color-brand-primary);">Lasya Natural Plates</strong>
+          <span style="display: block; font-size: 0.75rem; color: var(--color-text-muted);">Internal Staff Lead Management System</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a href="index.html" class="btn btn-sm btn-secondary"><i class="fa-solid fa-globe"></i> View Website</a>
+        <a href="/api/admin/export" class="btn btn-sm btn-primary"><i class="fa-solid fa-file-csv"></i> Export Leads (CSV)</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 30px;">
+    <!-- Stats Row -->
+    <div class="admin-stats-grid">
+      <div class="admin-stat-card">
+        <div class="num" id="statInquiriesCount">0</div>
+        <div class="label">Wholesale Quotation Requests</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="num" id="statSamplesCount">0</div>
+        <div class="label">Sample Kits Requested</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="num" id="statPlatesEstimated">12.5L+</div>
+        <div class="label">Total Plates Supplied</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="num" id="statPlasticSaved">31,250 kg</div>
+        <div class="label">Plastic Displaced</div>
+      </div>
+    </div>
+
+    <!-- Wholesale Leads Table -->
+    <div class="leads-table-card">
+      <div class="table-toolbar">
+        <div>
+          <h2 style="font-size: 1.4rem; color: var(--color-brand-primary);">Wholesale Quote Inquiries</h2>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted);">Real-time inquiries received through the website calculator and modal.</p>
+        </div>
+        <button class="btn btn-sm btn-secondary" id="refreshLeadsBtn"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="leads-data-table">
+          <thead>
+            <tr>
+              <th>Lead Ref</th>
+              <th>Date</th>
+              <th>Buyer / Company</th>
+              <th>Phone / Contact</th>
+              <th>Location</th>
+              <th>Products & Qty</th>
+              <th>Status</th>
+              <th>Quick Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inquiriesTableBody">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 30px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading inquiries...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Sample Box Requests Table -->
+    <div class="leads-table-card">
+      <div class="table-toolbar">
+        <div>
+          <h2 style="font-size: 1.4rem; color: var(--color-brand-primary);">Sample Kit Dispatch Requests</h2>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted);">Prospective B2B clients requesting physical sample kits.</p>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="leads-data-table">
+          <thead>
+            <tr>
+              <th>Sample ID</th>
+              <th>Date</th>
+              <th>Requester Name</th>
+              <th>Business Type</th>
+              <th>Phone</th>
+              <th>Shipping Address</th>
+              <th>Status</th>
+              <th>Quick Action</th>
+            </tr>
+          </thead>
+          <tbody id="samplesTableBody">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 30px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading sample requests...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

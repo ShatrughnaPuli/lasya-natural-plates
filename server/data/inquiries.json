@@ -1,0 +1,36 @@
+[
+  {
+    "id": "QUOTE-MTAZPIT1-8GI8",
+    "name": "Shatrughna Puli",
+    "company": "neelesh company",
+    "phone": "+919030184461",
+    "email": "winnu.p1819@gmail.com",
+    "location": "India",
+    "productTypes": [
+      "12\" Dinner Plate",
+      "10\" Standard Plate"
+    ],
+    "estimatedQuantity": "500 Units",
+    "message": "",
+    "source": "react_quote_modal",
+    "status": "New Lead",
+    "notes": "",
+    "createdAt": "2026-08-27T03:55:36.949Z",
+    "updatedAt": "2026-08-31T04:15:46.581Z"
+  },
+  {
+    "id": "QUOTE-MTAZ3PVN-UW2V",
+    "name": "Pooja Sharma",
+    "company": "Sharma Caterers",
+    "phone": "+91 9876543210",
+    "email": "Not provided",
+    "location": "Hyderabad",
+    "productTypes": [],
+    "estimatedQuantity": "20000 Units",
+    "message": "",
+    "source": "react_calculator",
+    "status": "New",
+    "notes": "",
+    "createdAt": "2026-08-27T03:38:39.684Z"
+  }
+]

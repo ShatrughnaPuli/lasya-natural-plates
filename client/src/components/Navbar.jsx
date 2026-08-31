@@ -1,0 +1,84 @@
+import React, { useState, useEffect } from 'react';
+import Logo from './Logo';
+
+export default function Navbar({ onOpenAdmin }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollTo = (id) => {
+    setMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
+      <div className="container header-inner">
+        <div onClick={() => scrollTo('home')} style={{ cursor: 'pointer' }}>
+          <Logo size={42} showSubtitle={true} />
+        </div>
+
+        {/* Public Customer Navigation Links */}
+        <ul className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+          <li><span className="nav-link" onClick={() => scrollTo('about')}>Why Lasya</span></li>
+          <li><span className="nav-link" onClick={() => scrollTo('products')}>Products</span></li>
+          <li><span className="nav-link" onClick={() => scrollTo('calculator')}>Wholesale Estimator</span></li>
+          <li><span className="nav-link" onClick={() => scrollTo('impact')}>Eco Impact</span></li>
+          <li><span className="nav-link" onClick={() => scrollTo('process')}>Process</span></li>
+          <li><span className="nav-link" onClick={() => scrollTo('brochure')}>Catalog</span></li>
+          <li><span className="nav-link" onClick={() => scrollTo('contact')}>Facility</span></li>
+          <li className="mobile-only-link" style={{ display: 'none' }}>
+            <span 
+              className="nav-link" 
+              onClick={() => { setMenuOpen(false); if (onOpenAdmin) onOpenAdmin(); }}
+              style={{ color: 'var(--color-earth-amber)', fontWeight: 700 }}
+            >
+              <i className="fa-solid fa-user-shield"></i> Owner HQ Portal
+            </span>
+          </li>
+        </ul>
+
+        {/* Call to Action Button */}
+        <div className="header-cta-group">
+          <button
+            onClick={onOpenAdmin}
+            className="btn btn-sm btn-secondary"
+            title="Owner Portal (Protected Access for Sir)"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px' }}
+          >
+            <i className="fa-solid fa-lock" style={{ color: 'var(--color-earth-amber)' }}></i>
+            <span>Owner HQ</span>
+          </button>
+
+          <a 
+            href="https://wa.me/916309199939?text=Hello%20Lasya%20Natural%20Plates,%20I%20would%20like%20to%20inquire%20about%20wholesale%20supply." 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn btn-whatsapp"
+            style={{ padding: '8px 16px', borderRadius: 'var(--radius-full)' }}
+          >
+            <i className="fa-brands fa-whatsapp"></i> Inquiry
+          </a>
+
+          <button 
+            className="mobile-toggle" 
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle Menu"
+          >
+            <i className={`fa-solid ${menuOpen ? 'fa-xmark' : 'fa-bars'}`}></i>
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}

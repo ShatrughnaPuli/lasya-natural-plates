@@ -1,0 +1,37 @@
+[
+  {
+    "id": "SMP-MTB06XC3-QRS6",
+    "name": "Shatrughna Puli",
+    "phone": "9030184461",
+    "email": "winnu.p1819@gmail.com",
+    "businessType": "Restaurant / Resort / Hotel",
+    "address": "1-75/1/5/59,Satti reddy colony, road no.3,Boduppal",
+    "preferredProducts": [
+      "12 Inch Dinner",
+      "10 Inch Dining",
+      "4-Compartment Thali",
+      "8 Inch Square",
+      "Curry Bowl"
+    ],
+    "status": "Sample Requested",
+    "createdAt": "2026-08-27T04:09:08.931Z"
+  },
+  {
+    "id": "SMP-LNP-1082",
+    "createdAt": "2026-08-27T03:34:20.200Z",
+    "name": "Kiran Reddy",
+    "phone": "+91 9701234567",
+    "email": "kiran.reddy@eventcraft.co",
+    "address": "Flat 302, Palm Meadows, Madhapur, Hyderabad, 500081",
+    "businessType": "Caterer / Event Planner",
+    "preferredProducts": [
+      "12 Inch Dinner",
+      "4-Compartment Thali",
+      "8 Inch Square",
+      "Curry Bowl"
+    ],
+    "notes": "Interested in 50k units for upcoming wedding season.",
+    "status": "Dispatched",
+    "dispatchDetails": "DTDC AWB #89201948"
+  }
+]

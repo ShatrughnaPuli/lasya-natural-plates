@@ -1,0 +1,43 @@
+[
+  {
+    "id": "QUOTE-LNP-8921",
+    "createdAt": "2026-08-27T08:15:00.000Z",
+    "name": "Arun Kumar",
+    "company": "Green Leaf Catering Services",
+    "phone": "+91 9848012345",
+    "email": "arun@greenleafcaterers.in",
+    "location": "Hyderabad, Telangana",
+    "productTypes": [
+      "12 Inch Dinner Plate",
+      "4-Compartment Thali",
+      "Deep Curry Bowls"
+    ],
+    "estimatedQuantity": "15,000 Units",
+    "customizationNeeded": "Standard Shrink Pack",
+    "deliveryTimeline": "10 Days",
+    "message": "We have 3 major wedding catering contracts next month in Gachibowli. Need regular monthly supply.",
+    "source": "website_calculator",
+    "status": "Contacted",
+    "notes": "Spoke on phone, requested sample kit and wholesale catalog."
+  },
+  {
+    "id": "QUOTE-LNP-4512",
+    "createdAt": "2026-08-26T16:30:00.000Z",
+    "name": "Meera Nambiar",
+    "company": "Organic Feast Resto & Cafe",
+    "phone": "+91 9447098765",
+    "email": "meera@organicfeast.com",
+    "location": "Bengaluru, Karnataka",
+    "productTypes": [
+      "10 Inch Dining Plate",
+      "8 Inch Square Plate"
+    ],
+    "estimatedQuantity": "5,000 Units",
+    "customizationNeeded": "Standard",
+    "deliveryTimeline": "Immediate",
+    "message": "Looking for eco-friendly dinnerware alternative to eliminate plastic completely.",
+    "source": "quote_modal",
+    "status": "Quotation Sent",
+    "notes": "Sent tier 2 wholesale price quotation via WhatsApp."
+  }
+]

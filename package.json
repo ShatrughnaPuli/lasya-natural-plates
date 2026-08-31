@@ -1,0 +1,21 @@
+{
+  "name": "lasya-natural-plates-mern",
+  "version": "1.0.0",
+  "description": "Production MERN Web Application & Wholesale Portal for Lasya Natural Plates",
+  "scripts": {
+    "server": "node server/server.js",
+    "client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "mern",
+    "react",
+    "express",
+    "mongodb",
+    "lasya-natural-plates",
+    "eco-friendly"
+  ],
+  "author": "Lasya Natural Plates",
+  "license": "ISC"
+}

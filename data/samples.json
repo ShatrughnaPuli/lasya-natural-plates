@@ -1,0 +1,20 @@
+[
+  {
+    "id": "SMP-LNP-1082",
+    "createdAt": "2026-08-27T07:45:00.000Z",
+    "name": "Kiran Reddy",
+    "phone": "+91 9701234567",
+    "email": "kiran.reddy@eventcraft.co",
+    "address": "Flat 302, Palm Meadows, Madhapur, Hyderabad, 500081",
+    "businessType": "Caterer / Event Planner",
+    "preferredProducts": [
+      "12 Inch Dinner",
+      "4-Compartment Thali",
+      "8 Inch Square",
+      "Curry Bowl"
+    ],
+    "notes": "Interested in 50k units for wedding season.",
+    "status": "Dispatched",
+    "dispatchDetails": "DTDC AWB #89201948"
+  }
+]

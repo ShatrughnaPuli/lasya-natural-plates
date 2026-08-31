@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lasya Natural Plates - Official Product Catalog & Technical Spec Sheet</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f8f1;
+      color: #1a3317;
+      padding: 30px 16px;
+      line-height: 1.5;
+    }
+
+    .action-bar {
+      max-width: 860px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-back {
+      color: #2e5426;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-print {
+      padding: 9px 22px;
+      background: #2e5426;
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(46, 84, 38, 0.25);
+    }
+
+    .btn-print:hover {
+      background: #3c6e32;
+    }
+
+    .brochure-sheet {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1.5px solid #a6c999;
+      border-radius: 16px;
+      padding: 32px 36px;
+      box-shadow: 0 8px 28px rgba(35, 65, 25, 0.08);
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #e1ede0;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #24471e;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #d4e8cb;
+      color: #24471e;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 0.82rem;
+      color: #435e3f;
+      line-height: 1.5;
+    }
+
+    .section-headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #24471e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    table.spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 22px;
+    }
+
+    table.spec-table th {
+      background: #edf4e8;
+      color: #24471e;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 10px 14px;
+      border: 1px solid #d4e3cf;
+      text-align: left;
+    }
+
+    table.spec-table td {
+      padding: 10px 14px;
+      border: 1px solid #e2ede0;
+      font-size: 0.86rem;
+      color: #284224;
+      vertical-align: middle;
+    }
+
+    table.spec-table tr:nth-child(even) {
+      background: #fbfdfa;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .feature-box {
+      background: #f6faf3;
+      border: 1px solid #d2e4ce;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .feature-box h4 {
+      font-size: 0.88rem;
+      color: #24471e;
+      margin-bottom: 4px;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feature-box p {
+      font-size: 0.78rem;
+      color: #3f593b;
+      line-height: 1.4;
+    }
+
+    .contact-box {
+      background: #24471e;
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .contact-box h3 {
+      font-size: 1.05rem;
+      margin-bottom: 3px;
+      font-family: 'Outfit', sans-serif;
+      color: #ffffff;
+    }
+
+    .contact-box p {
+      font-size: 0.8rem;
+      color: #d1e6cb;
+      line-height: 1.4;
+    }
+
+    .contact-info-right {
+      text-align: right;
+      font-size: 0.82rem;
+      color: #e4f3df;
+      line-height: 1.5;
+    }
+
+    /* Strict A4 Print Styling */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm 12mm;
+      }
+      
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .action-bar {
+        display: none !important;
+      }
+
+      .brochure-sheet {
+        max-width: 100% !important;
+        border: 1px solid #b2cbb0 !important;
+        box-shadow: none !important;
+        padding: 20px 24px !important;
+        border-radius: 8px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .feature-grid, .contact-box, table.spec-table, .header-bar {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      table.spec-table th {
+        background: #edf4e8 !important;
+        color: #24471e !important;
+      }
+
+      .feature-box {
+        background: #f6faf3 !important;
+      }
+
+      .contact-box {
+        background: #24471e !important;
+        color: #ffffff !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Top Bar -->
+  <div class="action-bar">
+    <a href="/" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back to Website</a>
+    <button class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Save / Print Official PDF</button>
+  </div>
+
+  <!-- Main A4 Spec Document Sheet -->
+  <div class="brochure-sheet">
+    
+    <!-- Header -->
+    <div class="header-bar">
+      <div>
+        <span class="badge"><i class="fa-solid fa-leaf"></i> 100% Fallen Palm Leaf Tableware</span>
+        <h1 class="brand-title">LASYA NATURAL PLATES</h1>
+        <p style="color: #3b5736; font-size: 0.9rem; font-weight: 500;">
+          Direct Manufacturers & Wholesale Exporters &bull; Made in Hyderabad
+        </p>
+      </div>
+      <div class="header-meta">
+        <strong>Catalog Ref:</strong> LNP-SPEC-2026<br>
+        <strong>Facility:</strong> Jalpally, Hyderabad, India<br>
+        <strong>Coordinates:</strong> 17°17'48.6"N 78°26'14.1"E
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div class="section-headline">
+      <i class="fa-solid fa-circle-check" style="color: #3e7333;"></i> Official Product Line & Export Specifications
+    </div>
+
+    <!-- Verified 2 Product Sizes Table -->
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th style="width: 14%;">Item Code</th>
+          <th style="width: 26%;">Product Model</th>
+          <th style="width: 18%;">Dimensions & Depth</th>
+          <th style="width: 18%;">Carton Packaging</th>
+          <th style="width: 24%;">Recommended Applications</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color: #24471e;">LNP-R12</strong></td>
+          <td>
+            <strong>12" Large Round Plate</strong><br>
+            <span style="font-size: 0.76rem; color: #587353;">Grand Buffet & Heavy Dining</span>
+          </td>
+          <td>
+            12" (30.5 cm)<br>
+            <span style="font-size: 0.76rem; color: #587353;">25mm Anti-Spill Rim</span>
+          </td>
+          <td>
+            <strong>200 Pcs</strong><br>
+            <span style="font-size: 0.76rem; color: #587353;">8 shrink packs of 25</span>
+          </td>
+          <td>Full Indian Meals, Biryanis, Buffets, Heavy Curries (holds up to 1.2 kg)</td>
+        </tr>
+        <tr>
+          <td><strong style="color: #24471e;">LNP-R08</strong></td>
+          <td>
+            <strong>8" Small Round Plate</strong><br>
+            <span style="font-size: 0.76rem; color: #587353;">Snack, Tiffin & Appetizers</span>
+          </td>
+          <td>
+            8" (20.3 cm)<br>
+            <span style="font-size: 0.76rem; color: #587353;">18mm Sturdy Rim</span>
+          </td>
+          <td>
+            <strong>300 Pcs</strong><br>
+            <span style="font-size: 0.76rem; color: #587353;">12 shrink packs of 25</span>
+          </td>
+          <td>Breakfast, Idli/Dosa, Starters, Desserts, Hi-Tea, Side Servings</td>
+        </tr>
+        <tr>
+          <td><strong style="color: #24471e;">LNP-CB01</strong></td>
+          <td>
+            <strong>Wholesale Event Combo</strong><br>
+            <span style="font-size: 0.76rem; color: #587353;">Full Catering Master Setup</span>
+          </td>
+          <td>
+            Assorted 12" & 8"<br>
+            <span style="font-size: 0.76rem; color: #587353;">Matched Set</span>
+          </td>
+          <td>
+            <strong>250 Pcs</strong><br>
+            <span style="font-size: 0.76rem; color: #587353;">125 Large + 125 Small</span>
+          </td>
+          <td>Complete banquet setup: Large plates for meals + Small plates for starters</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 3 Core Technical Benchmarks -->
+    <div class="feature-grid">
+      <div class="feature-box">
+        <h4><i class="fa-solid fa-temperature-arrow-up" style="color: #946d1b;"></i> Thermal Range</h4>
+        <p>-20°C to +180°C. Freezer safe, microwave friendly up to 2 mins.</p>
+      </div>
+      <div class="feature-box">
+        <h4><i class="fa-solid fa-droplet-slash" style="color: #2e5426;"></i> 4+ Hrs Leak Proof</h4>
+        <p>Natural hydrophobic leaf wax repels boiling oils, gravies, and soups.</p>
+      </div>
+      <div class="feature-box">
+        <h4><i class="fa-solid fa-recycle" style="color: #2e5426;"></i> 60-Day Composting</h4>
+        <p>100% backyard compostable. Breaks down into rich organic soil manure.</p>
+      </div>
+    </div>
+
+    <!-- Footer Office & Helplines -->
+    <div class="contact-box">
+      <div>
+        <h3>Manufacturing Unit & Wholesale Office</h3>
+        <p>
+          #4-322/54/A/1 plot no 543, Indira Gandhi Society,<br>
+          near Sriram Nagar colony, Jalpally - 500005, Telangana, India.
+        </p>
+      </div>
+      <div class="contact-info-right">
+        <strong>Director / Operations:</strong> Ravikanth SR<br>
+        <strong>Helpline:</strong> +91 6309199939 / +91 9603575915<br>
+        <strong>Email:</strong> lasyanaturalplates@gmail.com
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    if (window.location.search.includes('print=true')) {
+      window.onload = function() {
+        setTimeout(() => window.print(), 500);
+      };
+    }
+  </script>
+</body>
+</html>
