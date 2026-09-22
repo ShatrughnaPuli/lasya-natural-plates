@@ -115,9 +115,9 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
               style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.92rem', padding: '10px 18px' }}
             >
               {plate.isBowl ? (
-                <i className="fa-solid fa-bowl-food" style={{ color: selectedPlateIndex === index ? '#ffffff' : 'var(--color-brand-secondary)' }}></i>
+                <i className="fa-solid fa-bowl-food" style={{ color: selectedPlateIndex === index ? '#ffffff' : 'var(--color-brand-secondary)', fontSize: '0.95rem' }}></i>
               ) : (
-                <i className="fa-solid fa-circle" style={{ fontSize: `${0.65 + index * 0.12}rem` }}></i>
+                <i className="fa-solid fa-circle" style={{ fontSize: `${0.65 + ((plate.sizeInch - 8) / 6) * 0.45}rem` }}></i>
               )}
               <strong>{plate.name.split(' ')[0]} {plate.isBowl ? 'Dona Bowl' : 'Plate'}</strong>
               <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>({plate.sizeInch}")</span>

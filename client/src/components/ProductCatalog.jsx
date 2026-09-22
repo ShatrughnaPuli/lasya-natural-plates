@@ -151,25 +151,25 @@ export default function ProductCatalog({ onSelectProduct }) {
             className={`filter-btn ${activeFilter === '14' ? 'active' : ''}`}
             onClick={() => setActiveFilter('14')}
           >
-            <i className="fa-solid fa-circle"></i> 14" Grand Thali
+            <i className="fa-solid fa-circle" style={{ fontSize: '1.10rem' }}></i> 14" Grand Thali
           </button>
           <button 
             className={`filter-btn ${activeFilter === '12' ? 'active' : ''}`}
             onClick={() => setActiveFilter('12')}
           >
-            <i className="fa-solid fa-circle"></i> 12" Large Buffet
+            <i className="fa-solid fa-circle" style={{ fontSize: '0.95rem' }}></i> 12" Large Buffet
           </button>
           <button 
             className={`filter-btn ${activeFilter === '10' ? 'active' : ''}`}
             onClick={() => setActiveFilter('10')}
           >
-            <i className="fa-solid fa-circle" style={{ fontSize: '0.85rem' }}></i> 10" Medium Lunch
+            <i className="fa-solid fa-circle" style={{ fontSize: '0.80rem' }}></i> 10" Medium Lunch
           </button>
           <button 
             className={`filter-btn ${activeFilter === '8' ? 'active' : ''}`}
             onClick={() => setActiveFilter('8')}
           >
-            <i className="fa-solid fa-circle" style={{ fontSize: '0.75rem' }}></i> 8" Small Snack
+            <i className="fa-solid fa-circle" style={{ fontSize: '0.65rem' }}></i> 8" Small Snack
           </button>
           <button 
             className={`filter-btn ${activeFilter === 'bowls' ? 'active' : ''}`}
