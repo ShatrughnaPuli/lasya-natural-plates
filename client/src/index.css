@@ -64,7 +64,12 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
   font-size: 16px;
+}
+
+section, [id] {
+  scroll-margin-top: 90px;
 }
 
 body {
