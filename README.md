@@ -13,11 +13,16 @@
 
 ## 🍽️ Verified Signature Product Line
 
+> **"We have different sizes like 14", 12", 10", 8" plates and 4.5" Dona Leaf Bowls"**
+
 | Item Code | Product Model | Dimensions & Rim Depth | Pack & Master Carton | Ideal Applications |
 | :--- | :--- | :--- | :--- | :--- |
+| **`LNP-R14`** | **14" Grand Round Thali Plate** | 14" (35.5 cm) • 28mm Deep Rim | 25 Pcs / Pack • **150 Pcs / Carton** | Royal Indian Thalis, Grand Biryani Platters, Multi-Curry Wedding Feasts (holds up to 1.5 kg) |
 | **`LNP-R12`** | **12" Large Round Plate** | 12" (30.5 cm) • 25mm Deep Rim | 25 Pcs / Pack • **200 Pcs / Carton** | Full Indian Buffets, Biryanis, Banquets & Heavy Meals (holds up to 1.2 kg) |
+| **`LNP-R10`** | **10" Medium Round Plate** | 10" (25.4 cm) • 20mm Sturdy Rim | 25 Pcs / Pack • **250 Pcs / Carton** | Corporate Boxed Lunches, Executive Dinners, Regular Dining (holds up to 800g) |
 | **`LNP-R08`** | **8" Small Round Plate** | 8" (20.3 cm) • 18mm Sturdy Rim | 25 Pcs / Pack • **300 Pcs / Carton** | Breakfast, Tiffin, Starters, Desserts, Sweets & High-Tea (holds up to 500g) |
-| **`LNP-CB01`** | **Wholesale Event Combo** | Assorted 12" & 8" Matched Set | 125 Large + 125 Small = **250 Pcs** | Complete Event Suite (Main Course Dinner + Starters/Desserts) |
+| **`LNP-B45`** | **4.5" Dona Leaf Bowl** | 4.5" (11.4 cm) • 35mm Deep Cup | 50 Pcs / Pack • **500 Pcs / Carton** | Liquid Gravies, Sambar, Soups, Desserts, Gulab Jamun, Ice Cream & Prasadam (150-200ml) |
+| **`LNP-CB01`** | **Wholesale Event Combo** | Assorted Plates & Bowls Matched Set | Customizable Assortment | Complete Event Suite (Main Course Dinner + Starters + Gravy Bowls) |
 
 ---
 
@@ -32,10 +37,10 @@
 - Region selection for Domestic (Pan India Hub Dispatch) and International Export (Container Freight).
 
 ### 2. 👑 Owner / Host HQ Portal (Restricted Back-Office)
-- **Passcode Protected Gate**: Secure access for factory directors & owners (Default Key: `LASYA2026`).
+- **Passcode Protected Gate**: Secure access for factory directors & owners.
 - **Live Wholesale Lead Management**: Real-time log of customer inquiries with 1-click direct WhatsApp chat responses.
 - **Physical Sample Kit Logistics**: Tracks delivery addresses, pincodes, and courier dispatch statuses.
-- **Live Factory Inventory Counters**: Real-time stock counters for 12" and 8" plates with quick batch adjustments.
+- **Live Factory Inventory Counters**: Real-time stock counters for 14", 12", 10", 8" plates and 4.5" Dona Bowls.
 - **Owner Access Guide**: Built-in instructions on how company owners can access and manage leads from any mobile device.
 
 ### 3. 📸 Factory & Warehouse Media Slideshow

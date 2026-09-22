@@ -5,9 +5,12 @@ export default function WholesaleCalculator({ onOpenQuoteModal, selectedProducts
   const [region, setRegion] = useState('Pan India');
 
   const productOptions = [
+    { name: '14" Grand Round Thali Plate', desc: 'Royal Feasts, Grand Thalis & Banquets' },
     { name: '12" Large Round Plate', desc: 'Buffets, Banquets & Heavy Meals' },
+    { name: '10" Medium Round Plate', desc: 'Lunches, Dinners & Corporate Events' },
     { name: '8" Small Round Plate', desc: 'Snacks, Tiffin & Appetizers' },
-    { name: 'Mixed Event Combo (12" + 8")', desc: 'Complete Catering Master Setup' },
+    { name: '4.5" Dona Leaf Bowl', desc: 'Curries, Sambar, Dips & Desserts' },
+    { name: 'Assorted Event Combo (Plates + Dona Bowls)', desc: 'Complete Catering & Banquet Setup' },
   ];
 
   const toggleProduct = (name) => {

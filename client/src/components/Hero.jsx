@@ -112,7 +112,7 @@ export default function Hero() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                   <div>
                     <span style={{ fontSize: '0.70rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--color-brand-mint)', fontWeight: 600, display: 'block' }}>Fresh Batch Stock</span>
-                    <strong style={{ fontSize: '0.98rem', color: '#ffffff', display: 'block' }}>Export-Grade 12" & 8" Plates</strong>
+                    <strong style={{ fontSize: '0.94rem', color: '#ffffff', display: 'block' }}>14", 12", 10", 8" Plates & 4.5" Dona Bowls</strong>
                   </div>
                   <span style={{ background: 'rgba(255,255,255,0.25)', backdropFilter: 'blur(4px)', padding: '3px 8px', borderRadius: 'var(--radius-sm)', fontSize: '0.72rem', fontWeight: 600 }}>
                     100% Organic

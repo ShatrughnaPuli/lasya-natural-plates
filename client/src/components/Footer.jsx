@@ -58,10 +58,11 @@ export default function Footer({ onOpenAdmin }) {
           <div>
             <h4 className="footer-heading">Tableware Models</h4>
             <ul className="footer-links">
+              <li><span onClick={() => scrollTo('products')} style={{ cursor: 'pointer' }}>14" Grand Thali Plates (Royal Banquet)</span></li>
               <li><span onClick={() => scrollTo('products')} style={{ cursor: 'pointer' }}>12" Large Round Plates (Buffet)</span></li>
+              <li><span onClick={() => scrollTo('products')} style={{ cursor: 'pointer' }}>10" Medium Round Plates (Dining/Lunch)</span></li>
               <li><span onClick={() => scrollTo('products')} style={{ cursor: 'pointer' }}>8" Small Round Plates (Snack/Tiffin)</span></li>
-              <li><span onClick={() => scrollTo('products')} style={{ cursor: 'pointer' }}>200 Pcs Large Master Cartons</span></li>
-              <li><span onClick={() => scrollTo('products')} style={{ cursor: 'pointer' }}>300 Pcs Small Master Cartons</span></li>
+              <li><span onClick={() => scrollTo('products')} style={{ cursor: 'pointer' }}>4.5" Dona Leaf Bowls (Curries/Dips)</span></li>
               <li><span onClick={() => scrollTo('calculator')} style={{ cursor: 'pointer' }}>Bulk Wholesale Estimator</span></li>
             </ul>
           </div>

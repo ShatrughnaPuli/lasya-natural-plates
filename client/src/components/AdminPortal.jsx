@@ -69,7 +69,22 @@ export default function AdminPortal({ onClose, showToast }) {
   // Inventory Tracker State
   const [inventory, setInventory] = useState(() => {
     const saved = localStorage.getItem('lasya_inventory');
-    return saved ? JSON.parse(saved) : { largePlates: 50000, smallPlates: 35000, dailyProduction: 15000 };
+    return saved ? {
+      plates14: 25000,
+      largePlates: 50000,
+      plates10: 30000,
+      smallPlates: 35000,
+      donaBowls45: 40000,
+      dailyProduction: 25000,
+      ...JSON.parse(saved)
+    } : {
+      plates14: 25000,
+      largePlates: 50000,
+      plates10: 30000,
+      smallPlates: 35000,
+      donaBowls45: 40000,
+      dailyProduction: 25000
+    };
   });
 
   // Media Gallery Manager State
@@ -782,17 +797,35 @@ export default function AdminPortal({ onClose, showToast }) {
                 </span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '24px' }}>
-                {/* 12 Inch Stock Card */}
-                <div style={{ background: '#ffffff', padding: '24px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase' }}>
-                      12" Large Round Plates
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '18px', marginBottom: '24px' }}>
+                {/* 14 Inch Stock Card */}
+                <div style={{ background: '#ffffff', padding: '22px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase' }}>
+                      14" Grand Thali Plates
                     </span>
                     <i className="fa-solid fa-circle" style={{ color: 'var(--color-brand-primary)', fontSize: '1.2rem' }}></i>
                   </div>
-                  <strong style={{ fontSize: '2.2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '14px' }}>
-                    {inventory.largePlates.toLocaleString()} <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Units</span>
+                  <strong style={{ fontSize: '2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '12px' }}>
+                    {(inventory.plates14 || 0).toLocaleString()} <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Units</span>
+                  </strong>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('plates14', -1000)}>-1,000</button>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('plates14', 1000)}>+1,000</button>
+                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('plates14', 5000)}>+5,000</button>
+                  </div>
+                </div>
+
+                {/* 12 Inch Stock Card */}
+                <div style={{ background: '#ffffff', padding: '22px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase' }}>
+                      12" Large Round Plates
+                    </span>
+                    <i className="fa-solid fa-circle" style={{ color: 'var(--color-brand-primary)', fontSize: '1.1rem' }}></i>
+                  </div>
+                  <strong style={{ fontSize: '2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '12px' }}>
+                    {(inventory.largePlates || 0).toLocaleString()} <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Units</span>
                   </strong>
                   <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('largePlates', -1000)}>-1,000</button>
@@ -801,16 +834,34 @@ export default function AdminPortal({ onClose, showToast }) {
                   </div>
                 </div>
 
+                {/* 10 Inch Stock Card */}
+                <div style={{ background: '#ffffff', padding: '22px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase' }}>
+                      10" Medium Round Plates
+                    </span>
+                    <i className="fa-solid fa-circle" style={{ color: 'var(--color-brand-secondary)', fontSize: '0.95rem' }}></i>
+                  </div>
+                  <strong style={{ fontSize: '2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '12px' }}>
+                    {(inventory.plates10 || 0).toLocaleString()} <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Units</span>
+                  </strong>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('plates10', -1000)}>-1,000</button>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('plates10', 1000)}>+1,000</button>
+                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('plates10', 5000)}>+5,000</button>
+                  </div>
+                </div>
+
                 {/* 8 Inch Stock Card */}
-                <div style={{ background: '#ffffff', padding: '24px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-brand-secondary)', textTransform: 'uppercase' }}>
+                <div style={{ background: '#ffffff', padding: '22px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-brand-secondary)', textTransform: 'uppercase' }}>
                       8" Small Round Plates
                     </span>
-                    <i className="fa-solid fa-circle" style={{ color: 'var(--color-brand-secondary)', fontSize: '0.9rem' }}></i>
+                    <i className="fa-solid fa-circle" style={{ color: 'var(--color-brand-secondary)', fontSize: '0.85rem' }}></i>
                   </div>
-                  <strong style={{ fontSize: '2.2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '14px' }}>
-                    {inventory.smallPlates.toLocaleString()} <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Units</span>
+                  <strong style={{ fontSize: '2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '12px' }}>
+                    {(inventory.smallPlates || 0).toLocaleString()} <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Units</span>
                   </strong>
                   <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('smallPlates', -1000)}>-1,000</button>
@@ -819,16 +870,34 @@ export default function AdminPortal({ onClose, showToast }) {
                   </div>
                 </div>
 
-                {/* Daily Production Capacity (NOW FULLY EDITABLE) */}
-                <div style={{ background: '#ffffff', padding: '24px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase' }}>
+                {/* 4.5 Inch Dona Bowl Stock Card */}
+                <div style={{ background: '#ffffff', padding: '22px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-brand-secondary)', textTransform: 'uppercase' }}>
+                      4.5" Dona Leaf Bowls
+                    </span>
+                    <i className="fa-solid fa-bowl-food" style={{ color: 'var(--color-brand-secondary)', fontSize: '1rem' }}></i>
+                  </div>
+                  <strong style={{ fontSize: '2rem', color: 'var(--color-text-title)', display: 'block', marginBottom: '12px' }}>
+                    {(inventory.donaBowls45 || 0).toLocaleString()} <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Units</span>
+                  </strong>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('donaBowls45', -1000)}>-1,000</button>
+                    <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('donaBowls45', 1000)}>+1,000</button>
+                    <button className="btn btn-sm btn-primary" onClick={() => updateInventory('donaBowls45', 5000)}>+5,000</button>
+                  </div>
+                </div>
+
+                {/* Daily Production Capacity (EDITABLE) */}
+                <div style={{ background: '#ffffff', padding: '22px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase' }}>
                       Daily Press Output
                     </span>
-                    <i className="fa-solid fa-industry" style={{ color: 'var(--color-brand-primary)', fontSize: '1.2rem' }}></i>
+                    <i className="fa-solid fa-industry" style={{ color: 'var(--color-brand-primary)', fontSize: '1.1rem' }}></i>
                   </div>
-                  <strong style={{ fontSize: '2.2rem', color: 'var(--color-brand-primary)', display: 'block', marginBottom: '14px' }}>
-                    {inventory.dailyProduction.toLocaleString()} <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Pcs/Day</span>
+                  <strong style={{ fontSize: '2rem', color: 'var(--color-brand-primary)', display: 'block', marginBottom: '12px' }}>
+                    {(inventory.dailyProduction || 0).toLocaleString()} <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Pcs/Day</span>
                   </strong>
                   <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     <button className="btn btn-sm btn-secondary" onClick={() => updateInventory('dailyProduction', -1000)}>-1,000</button>

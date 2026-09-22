@@ -21,7 +21,7 @@ export default function SampleKitSection({ showToast }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          preferredProducts: ['12" Large Round Plate', '8" Small Round Plate']
+          preferredProducts: ['14" Grand Round Thali Plate', '12" Large Round Plate', '10" Medium Round Plate', '8" Small Round Plate', '4.5" Dona Leaf Bowl']
         })
       });
 
@@ -65,14 +65,14 @@ export default function SampleKitSection({ showToast }) {
               />
               <div>
                 <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', color: 'var(--color-brand-secondary)', fontWeight: 700 }}>Direct from Factory</span>
-                <strong style={{ fontSize: '0.95rem', color: 'var(--color-brand-primary)', display: 'block' }}>Signature Sample Pair</strong>
-                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Includes 12" Large Round & 8" Small Round Plates</span>
+                <strong style={{ fontSize: '0.95rem', color: 'var(--color-brand-primary)', display: 'block' }}>Complete Tableware Sample Kit</strong>
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Includes 14", 12", 10", 8" Round Plates & 4.5" Dona Bowls</span>
               </div>
             </div>
 
             <ul className="product-specs-list" style={{ marginBottom: '24px' }}>
-              <li><i className="fa-solid fa-circle-check" style={{ color: 'var(--color-brand-secondary)' }}></i> Contains physical samples of both 12" and 8" round plates</li>
-              <li><i className="fa-solid fa-circle-check" style={{ color: 'var(--color-brand-secondary)' }}></i> Shipped directly to your restaurant, hotel, or office</li>
+              <li><i className="fa-solid fa-circle-check" style={{ color: 'var(--color-brand-secondary)' }}></i> Contains physical samples of 14", 12", 10", 8" plates & 4.5" Dona leaf bowls</li>
+              <li><i className="fa-solid fa-circle-check" style={{ color: 'var(--color-brand-secondary)' }}></i> Shipped directly to your restaurant, hotel, catering unit or office</li>
               <li><i className="fa-solid fa-circle-check" style={{ color: 'var(--color-brand-secondary)' }}></i> Dispatched within 24 hours via express courier</li>
             </ul>
             <div style={{ padding: '16px', background: 'var(--color-bg-card)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>

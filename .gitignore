@@ -6,11 +6,25 @@ server/node_modules/
 # Production Builds
 client/dist/
 dist/
+build/
 
-# Environment variables & secrets
+# Environment variables & secrets (All environments and subdirectories)
 .env
-.env.local
-.env.production
+.env.*
+*.env
+client/.env*
+server/.env*
+*.key
+*.pem
+*.cert
+*.crt
+*.pfx
+*.p12
+*.secret
+credentials*.json
+serviceAccountKey*.json
+client_secrets*.json
+secrets/
 
 # Logs
 *.log

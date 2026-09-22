@@ -6,22 +6,54 @@ export default function ProductCatalog({ onSelectProduct }) {
 
   const products = [
     {
-      id: 'p1',
-      category: 'large',
+      id: 'p14',
+      category: 'plates',
+      sizeCategory: '14',
+      name: '14" Grand Round Thali / Platter Plate',
+      badge: 'Royal Feast & Grand Thali',
+      graphicType: 'grand_round',
+      tagline: 'Mega Indian Feasts, Thalis & Grand Banquets',
+      specs: [
+        'Diameter: 14 Inches (35.5 cm) • Extra-Wide Rim',
+        'Capacity: Holds up to 1.5 kg heavy multi-course meals',
+        'Features: 100% Leak & Oil Proof (4+ Hours)',
+        'Packaging: 25 Pcs / Shrink Pack • 150 Pcs / Carton'
+      ]
+    },
+    {
+      id: 'p12',
+      category: 'plates',
+      sizeCategory: '12',
       name: '12" Large Round Plate',
       badge: 'Flagship Dinner Plate',
       graphicType: 'large_round',
-      tagline: 'Grand Buffets, Banquets & Heavy Meals',
+      tagline: 'Grand Buffets, Banquets & Heavy Catering',
       specs: [
         'Diameter: 12 Inches (30.5 cm) • 25mm Deep Rim',
         'Capacity: Holds up to 1.2 kg without bending',
-        'Features: 100% Leak & Oil Proof (4+ Hours)',
+        'Features: Heat-resistant & Microwave Safe',
         'Packaging: 25 Pcs / Shrink Pack • 200 Pcs / Carton'
       ]
     },
     {
-      id: 'p2',
-      category: 'small',
+      id: 'p10',
+      category: 'plates',
+      sizeCategory: '10',
+      name: '10" Medium Round Plate',
+      badge: 'Standard Dining Special',
+      graphicType: 'medium_round',
+      tagline: 'Lunches, Dinners, Corporate Meals & Events',
+      specs: [
+        'Diameter: 10 Inches (25.4 cm) • 20mm Sturdy Rim',
+        'Capacity: Holds up to 800g full meal course',
+        'Features: 100% Biodegradable & Backyard Compostable',
+        'Packaging: 25 Pcs / Shrink Pack • 250 Pcs / Carton'
+      ]
+    },
+    {
+      id: 'p08',
+      category: 'plates',
+      sizeCategory: '8',
       name: '8" Small Round Plate',
       badge: 'Snack & Breakfast Special',
       graphicType: 'small_round',
@@ -29,53 +61,82 @@ export default function ProductCatalog({ onSelectProduct }) {
       specs: [
         'Diameter: 8 Inches (20.3 cm) • 18mm Sturdy Rim',
         'Capacity: Holds up to 500g snacks/desserts',
-        'Features: Heat-resistant & Microwave Safe',
+        'Features: Lightweight yet rigid & leak-proof',
         'Packaging: 25 Pcs / Shrink Pack • 300 Pcs / Carton'
       ]
     },
     {
-      id: 'p3',
-      category: 'large',
-      name: '12" Large Round Wholesale Carton (200 Pcs)',
-      badge: 'Direct Factory Case',
-      graphicType: 'large_round',
-      tagline: 'Bulk Supply for Caterers, Hotels & Exporters',
+      id: 'p45',
+      category: 'bowls',
+      sizeCategory: '4.5',
+      name: '4.5" Dona Leaf Bowl',
+      badge: 'Curry, Gravy & Dessert Bowl',
+      graphicType: 'dona',
+      tagline: 'Curries, Sambar, Dips, Ice Creams & Prasadam',
       specs: [
-        'Quantity: 8 shrink-wrapped bundles of 25 pcs',
-        'Case Dimensions: Heavy 5-ply export corrugated box',
-        'Moisture Protection: Silica gel pouches included',
-        'Dispatch: Same-day factory dispatch from Jalpally'
+        'Size: 4.5 Inches (11.4 cm) • Deep Curved Bowl Base',
+        'Capacity: 150 ml – 200 ml liquid safe',
+        'Features: Zero leakage for boiling hot soups & gravies',
+        'Packaging: 50 Pcs / Shrink Pack • 500 Pcs / Carton'
       ]
     },
     {
-      id: 'p4',
-      category: 'small',
-      name: '8" Small Round Wholesale Carton (300 Pcs)',
-      badge: 'High-Volume Case',
-      graphicType: 'small_round',
-      tagline: 'Ideal for Event Planners, Cafes & Resorts',
+      id: 'p_carton_combo',
+      category: 'cartons',
+      sizeCategory: 'combo',
+      name: 'Wholesale Master Cartons (Full Range)',
+      badge: 'Direct Factory Cases',
+      graphicType: 'large_round',
+      tagline: 'Assorted 14", 12", 10", 8" Plates & 4.5" Dona Bowls',
       specs: [
-        'Quantity: 12 shrink-wrapped bundles of 25 pcs',
-        'Case Dimensions: Heavy 5-ply export corrugated box',
-        'Moisture Protection: Silica gel pouches included',
-        'Dispatch: Same-day factory dispatch from Jalpally'
+        'Options: Available in individual or customized mixed pallets',
+        'Case Dimensions: Heavy 5-ply export corrugated boxes',
+        'Moisture Protection: Silica gel desiccants included',
+        'Dispatch: Same-day factory dispatch from Jalpally facility'
       ]
     }
   ];
 
   const filteredProducts = activeFilter === 'all'
     ? products
-    : products.filter(p => p.category === activeFilter);
+    : activeFilter === 'plates'
+      ? products.filter(p => p.category === 'plates')
+      : activeFilter === 'bowls'
+        ? products.filter(p => p.category === 'bowls')
+        : products.filter(p => p.category === activeFilter || p.sizeCategory === activeFilter);
 
   return (
     <section className="section" id="products">
       <div className="container">
         <div className="section-header">
-          <span className="section-subtitle">Factory Direct Tableware</span>
-          <h2 className="section-title">Our Signature Round Plate Collection</h2>
+          <span className="section-subtitle">Factory Direct Tableware Range</span>
+          <h2 className="section-title">Our Complete Natural Tableware Collection</h2>
           <p className="section-desc">
-            Direct from our Hyderabad manufacturing unit: genuine 100% fallen areca palm leaf plates in our two verified signature round sizes.
+            Direct from our Hyderabad manufacturing unit: genuine 100% fallen areca palm leaf products. We manufacture different sizes like <strong>14", 12", 10", 8" plates</strong> and <strong>4.5" Dona Leaf Bowls</strong> for all catering and dining needs.
           </p>
+        </div>
+
+        {/* Highlight Banner */}
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(46,78,39,0.08) 0%, rgba(85,124,67,0.15) 100%)',
+          border: '1.5px solid var(--color-brand-mint)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '16px 24px',
+          marginBottom: '32px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          textAlign: 'center',
+          flexWrap: 'wrap'
+        }}>
+          <i className="fa-solid fa-sparkles" style={{ color: 'var(--color-brand-secondary)', fontSize: '1.2rem' }}></i>
+          <span style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--color-brand-primary)' }}>
+            We have different sizes like 14" 12" 10" 8" plates and 4.5" Dona Leaf Bowls
+          </span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', background: 'rgba(255,255,255,0.85)', padding: '3px 10px', borderRadius: 'var(--radius-full)' }}>
+            100% Eco-Friendly • Chemical Free
+          </span>
         </div>
 
         {/* Filter Navigation Bar */}
@@ -84,19 +145,37 @@ export default function ProductCatalog({ onSelectProduct }) {
             className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
             onClick={() => setActiveFilter('all')}
           >
-            All Sizes & Packs
+            All Sizes & Items
           </button>
           <button 
-            className={`filter-btn ${activeFilter === 'large' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('large')}
+            className={`filter-btn ${activeFilter === '14' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('14')}
           >
-            <i className="fa-solid fa-circle"></i> 12" Large Round (Buffet)
+            <i className="fa-solid fa-circle"></i> 14" Grand Thali
           </button>
           <button 
-            className={`filter-btn ${activeFilter === 'small' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('small')}
+            className={`filter-btn ${activeFilter === '12' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('12')}
           >
-            <i className="fa-solid fa-circle" style={{ fontSize: '0.8rem' }}></i> 8" Small Round (Snack/Tiffin)
+            <i className="fa-solid fa-circle"></i> 12" Large Buffet
+          </button>
+          <button 
+            className={`filter-btn ${activeFilter === '10' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('10')}
+          >
+            <i className="fa-solid fa-circle" style={{ fontSize: '0.85rem' }}></i> 10" Medium Lunch
+          </button>
+          <button 
+            className={`filter-btn ${activeFilter === '8' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('8')}
+          >
+            <i className="fa-solid fa-circle" style={{ fontSize: '0.75rem' }}></i> 8" Small Snack
+          </button>
+          <button 
+            className={`filter-btn ${activeFilter === 'bowls' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('bowls')}
+          >
+            <i className="fa-solid fa-bowl-food"></i> 4.5" Dona Bowls
           </button>
         </div>
 
