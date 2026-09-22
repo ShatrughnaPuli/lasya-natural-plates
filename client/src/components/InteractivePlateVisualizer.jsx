@@ -180,8 +180,10 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
             {/* Dynamic Rendered Round Plate / Dona Bowl */}
             <div 
               style={{
-                width: `${260 * current.renderRatio}px`,
-                height: `${260 * current.renderRatio}px`,
+                width: `clamp(180px, ${50 * current.renderRatio}vw, ${260 * current.renderRatio}px)`,
+                height: `clamp(180px, ${50 * current.renderRatio}vw, ${260 * current.renderRatio}px)`,
+                maxWidth: '85vw',
+                maxHeight: '85vw',
                 borderRadius: '50%',
                 background: current.isBowl
                   ? 'radial-gradient(circle at 45% 45%, #7ea064 0%, #597341 55%, #384c26 100%)'

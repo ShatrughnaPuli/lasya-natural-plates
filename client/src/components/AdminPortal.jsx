@@ -409,41 +409,10 @@ export default function AdminPortal({ onClose, showToast }) {
   );
 
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      background: 'rgba(12, 26, 10, 0.85)',
-      backdropFilter: 'blur(8px)',
-      zIndex: 3000,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 'max(12px, env(safe-area-inset-top, 12px)) max(12px, env(safe-area-inset-right, 12px)) max(12px, env(safe-area-inset-bottom, 12px)) max(12px, env(safe-area-inset-left, 12px))'
-    }}>
-      <div style={{
-        background: '#f8faf5',
-        width: '100%',
-        maxWidth: '1200px',
-        maxHeight: '94dvh',
-        height: '94dvh',
-        borderRadius: 'var(--radius-xl)',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        boxShadow: 'var(--shadow-lg)',
-        border: '2px solid var(--color-brand-pale)'
-      }}>
+    <div className="admin-modal-overlay">
+      <div className="admin-modal-container">
         {/* Top Header Bar */}
-        <div style={{
-          background: 'var(--color-brand-primary)',
-          color: '#ffffff',
-          padding: '16px 24px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '12px'
-        }}>
+        <div className="admin-modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
               width: '40px',
@@ -453,35 +422,39 @@ export default function AdminPortal({ onClose, showToast }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.2rem'
+              fontSize: '1.2rem',
+              flexShrink: 0
             }}>
               <i className="fa-solid fa-crown" style={{ color: '#f7d774' }}></i>
             </div>
             <div>
-              <h2 style={{ fontSize: '1.25rem', color: '#ffffff', lineHeight: 1.1 }}>
+              <h2 style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', color: '#ffffff', lineHeight: 1.2, margin: 0 }}>
                 Lasya Natural Plates — Owner HQ Portal
               </h2>
-              <span style={{ fontSize: '0.78rem', color: 'var(--color-brand-mint)' }}>
+              <span style={{ fontSize: 'clamp(0.7rem, 2.5vw, 0.78rem)', color: 'var(--color-brand-mint)' }}>
                 Direct Access for Factory Management &bull; Jalpally Unit
               </span>
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
               onClick={() => setShowPinChange(!showPinChange)}
               style={{
                 background: 'rgba(255,255,255,0.2)',
                 border: 'none',
                 color: '#ffffff',
-                padding: '6px 14px',
+                padding: '6px 12px',
                 borderRadius: 'var(--radius-full)',
                 fontSize: '0.8rem',
                 fontWeight: 600,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              <i className="fa-solid fa-key"></i> {showPinChange ? 'Cancel' : 'Change Passcode'}
+              <i className="fa-solid fa-key"></i> {showPinChange ? 'Cancel' : 'Change PIN'}
             </button>
             <button
               onClick={handleLogout}
@@ -489,11 +462,14 @@ export default function AdminPortal({ onClose, showToast }) {
                 background: 'rgba(255,255,255,0.2)',
                 border: 'none',
                 color: '#ffffff',
-                padding: '6px 14px',
+                padding: '6px 12px',
                 borderRadius: 'var(--radius-full)',
                 fontSize: '0.8rem',
                 fontWeight: 600,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
               title="Lock portal immediately"
             >
@@ -512,8 +488,10 @@ export default function AdminPortal({ onClose, showToast }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                fontSize: '1.1rem'
+                fontSize: '1.1rem',
+                flexShrink: 0
               }}
+              aria-label="Close Portal"
             >
               <i className="fa-solid fa-xmark"></i>
             </button>
@@ -522,14 +500,14 @@ export default function AdminPortal({ onClose, showToast }) {
 
         {/* Change Passcode Banner Modal (Only visible after login) */}
         {showPinChange && (
-          <div style={{ background: '#e4f0dd', padding: '16px 24px', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+          <div style={{ background: '#e4f0dd', padding: '14px 20px', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
             <div>
-              <strong style={{ color: 'var(--color-brand-primary)', fontSize: '0.92rem' }}>Change Portal Secret Passcode:</strong>
-              <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', display: 'block' }}>
+              <strong style={{ color: 'var(--color-brand-primary)', fontSize: '0.9rem' }}>Change Portal Secret Passcode:</strong>
+              <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'block' }}>
                 Enter your new secret key below.
               </span>
             </div>
-            <form onSubmit={handleSavePin} style={{ display: 'flex', gap: '8px' }}>
+            <form onSubmit={handleSavePin} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <input
                 type="text"
                 className="form-control"
@@ -537,7 +515,7 @@ export default function AdminPortal({ onClose, showToast }) {
                 value={newPin}
                 onChange={(e) => setNewPin(e.target.value)}
                 required
-                style={{ width: '240px', padding: '6px 12px', fontSize: '0.88rem' }}
+                style={{ width: '220px', padding: '6px 12px', fontSize: '0.88rem' }}
               />
               <button type="submit" className="btn btn-sm btn-primary">
                 Save PIN
@@ -547,46 +525,53 @@ export default function AdminPortal({ onClose, showToast }) {
         )}
 
         {/* Navigation Tabs */}
-        <div style={{
-          background: '#ffffff',
-          padding: '10px 24px',
-          borderBottom: '1px solid var(--color-border)',
-          display: 'flex',
-          gap: '10px',
-          overflowX: 'auto'
-        }}>
+        <div className="admin-modal-tabs">
           <button
             className={`filter-btn ${activeTab === 'inquiries' ? 'active' : ''}`}
             onClick={() => setActiveTab('inquiries')}
-            style={{ fontSize: '0.88rem', padding: '8px 16px' }}
+            style={{ fontSize: '0.85rem', padding: '8px 14px' }}
           >
             <i className="fa-solid fa-envelope-open-text"></i> Wholesale Inquiries ({inquiries.length})
           </button>
           <button
             className={`filter-btn ${activeTab === 'samples' ? 'active' : ''}`}
             onClick={() => setActiveTab('samples')}
-            style={{ fontSize: '0.88rem', padding: '8px 16px' }}
+            style={{ fontSize: '0.85rem', padding: '8px 14px' }}
           >
             <i className="fa-solid fa-truck-fast"></i> Sample Requests ({samples.length})
           </button>
           <button
             className={`filter-btn ${activeTab === 'inventory' ? 'active' : ''}`}
             onClick={() => setActiveTab('inventory')}
-            style={{ fontSize: '0.88rem', padding: '8px 16px' }}
+            style={{ fontSize: '0.85rem', padding: '8px 14px' }}
           >
             <i className="fa-solid fa-warehouse"></i> Live Factory Stock
           </button>
           <button
             className={`filter-btn ${activeTab === 'slideshow' ? 'active' : ''}`}
             onClick={() => setActiveTab('slideshow')}
-            style={{ fontSize: '0.88rem', padding: '8px 16px' }}
+            style={{ fontSize: '0.85rem', padding: '8px 14px' }}
           >
-            <i className="fa-solid fa-images"></i> Media & Showcase Manager
+            <i className="fa-solid fa-images"></i> Media & Showcase
+          </button>
+          <button
+            className={`filter-btn ${activeTab === 'handover' ? 'active' : ''}`}
+            onClick={() => setActiveTab('handover')}
+            style={{
+              fontSize: '0.85rem',
+              padding: '8px 14px',
+              background: activeTab === 'handover' ? 'var(--color-earth-amber)' : 'rgba(181, 136, 50, 0.12)',
+              color: activeTab === 'handover' ? '#ffffff' : 'var(--color-earth-amber)',
+              border: '1.5px solid var(--color-earth-amber)',
+              fontWeight: 700
+            }}
+          >
+            <i className="fa-solid fa-circle-question"></i> How Sir Accesses This Site
           </button>
         </div>
 
         {/* Main Content Area */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
+        <div className="admin-modal-body">
           
           {/* TAB 1: WHOLESALE INQUIRIES */}
           {activeTab === 'inquiries' && (
@@ -797,7 +782,7 @@ export default function AdminPortal({ onClose, showToast }) {
                 </span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '18px', marginBottom: '24px' }}>
+              <div className="admin-stock-grid">
                 {/* 14 Inch Stock Card */}
                 <div style={{ background: '#ffffff', padding: '22px', borderRadius: 'var(--radius-lg)', border: '2px solid var(--color-brand-mint)', boxShadow: 'var(--shadow-sm)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
@@ -1012,6 +997,202 @@ export default function AdminPortal({ onClose, showToast }) {
               <div style={{ marginTop: '20px' }}>
                 <h4 style={{ fontSize: '1.05rem', color: 'var(--color-text-title)', marginBottom: '12px' }}>Live Slideshow Preview</h4>
                 <FactoryGallerySlideshow />
+              </div>
+            </div>
+          )}
+
+          {/* TAB 5: HOW SIR ACCESSES THIS SITE & OFFICIAL CLIENT HANDOVER GUIDE */}
+          {activeTab === 'handover' && (
+            <div>
+              <div style={{ marginBottom: '20px' }}>
+                <span className="pill-badge" style={{ background: 'var(--color-brand-mint)', color: 'var(--color-brand-primary)', marginBottom: '8px' }}>
+                  <i className="fa-solid fa-crown"></i> Official Factory Owner Guide
+                </span>
+                <h3 style={{ fontSize: '1.35rem', color: 'var(--color-text-title)', marginTop: '4px' }}>
+                  How Sir Accesses, Manages & Runs This Website
+                </h3>
+                <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)' }}>
+                  Step-by-step instructions for the business owner to access customer leads, change pricing/stock, and reply via WhatsApp.
+                </p>
+              </div>
+
+              {/* 4 Responsive Handover Cards */}
+              <div className="admin-handover-grid">
+                {/* Step 1 */}
+                <div style={{
+                  background: '#ffffff',
+                  padding: '24px',
+                  borderRadius: 'var(--radius-lg)',
+                  border: '1.5px solid var(--color-border)',
+                  boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: 'var(--color-brand-mint)',
+                      color: 'var(--color-brand-primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 800,
+                      fontSize: '1.1rem',
+                      flexShrink: 0
+                    }}>1</span>
+                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
+                      Share the Website Link
+                    </h4>
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
+                    Once deployed to your domain (e.g. <strong>https://lasya-natural-plates.vercel.app</strong>), give Sir this URL. It works seamlessly across all devices — iPhones, Android phones, tablets, and laptops.
+                  </p>
+                </div>
+
+                {/* Step 2 */}
+                <div style={{
+                  background: '#ffffff',
+                  padding: '24px',
+                  borderRadius: 'var(--radius-lg)',
+                  border: '1.5px solid var(--color-border)',
+                  boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: 'var(--color-brand-mint)',
+                      color: 'var(--color-brand-primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 800,
+                      fontSize: '1.1rem',
+                      flexShrink: 0
+                    }}>2</span>
+                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
+                      Click "Owner HQ" / Lock Icon
+                    </h4>
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
+                    At the top right of the navigation bar (or inside the mobile hamburger menu / footer), tap the <strong>Lock Icon</strong> or <strong>Owner HQ Portal</strong> button.
+                  </p>
+                </div>
+
+                {/* Step 3 */}
+                <div style={{
+                  background: '#ffffff',
+                  padding: '24px',
+                  borderRadius: 'var(--radius-lg)',
+                  border: '1.5px solid var(--color-border)',
+                  boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: 'var(--color-brand-mint)',
+                      color: 'var(--color-brand-primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 800,
+                      fontSize: '1.1rem',
+                      flexShrink: 0
+                    }}>3</span>
+                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
+                      Enter the Secret Passcode
+                    </h4>
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
+                    Sir enters his secret passcode: <code style={{ background: 'var(--color-bg-subtle)', padding: '3px 8px', borderRadius: 'var(--radius-sm)', fontWeight: 700, color: 'var(--color-brand-primary)' }}>{storedPin}</code>. Sir can change this PIN anytime using the <em>"Change PIN"</em> button at top.
+                  </p>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(storedPin);
+                      showToast('Copied!', 'Passcode copied to clipboard', 'success');
+                    }}
+                    className="btn btn-sm btn-secondary"
+                    style={{ alignSelf: 'flex-start', marginTop: '4px' }}
+                  >
+                    <i className="fa-solid fa-copy"></i> Copy Secret Passcode
+                  </button>
+                </div>
+
+                {/* Step 4 */}
+                <div style={{
+                  background: '#ffffff',
+                  padding: '24px',
+                  borderRadius: 'var(--radius-lg)',
+                  border: '1.5px solid var(--color-border)',
+                  boxShadow: 'var(--shadow-sm)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: 'var(--color-brand-mint)',
+                      color: 'var(--color-brand-primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 800,
+                      fontSize: '1.1rem',
+                      flexShrink: 0
+                    }}>4</span>
+                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
+                      One-Click WhatsApp Direct Reply
+                    </h4>
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
+                    Sir can directly click the green <strong>"Chat on WhatsApp"</strong> button next to any lead to immediately open WhatsApp and send quotations from his mobile phone!
+                  </p>
+                </div>
+              </div>
+
+              {/* Direct Support & Factory Operations Summary Card */}
+              <div style={{
+                background: 'linear-gradient(135deg, var(--color-brand-glow) 0%, #ffffff 100%)',
+                padding: '24px',
+                borderRadius: 'var(--radius-xl)',
+                border: '2px solid var(--color-brand-mint)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '16px'
+              }}>
+                <div>
+                  <h4 style={{ color: 'var(--color-brand-primary)', fontSize: '1.1rem', marginBottom: '6px' }}>
+                    <i className="fa-solid fa-shield-halved"></i> 100% Private, Secure & Server-Backed
+                  </h4>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--color-text-body)', margin: 0, maxWidth: '650px' }}>
+                    All wholesale quotations and sample requests are securely stored and never exposed publicly. The website automatically adapts to all screen resolutions (smartphones, tablets, and 4K displays).
+                  </p>
+                </div>
+                <a
+                  href="https://wa.me/916309199939?text=Hello%20Sir,%20the%20Lasya%20Natural%20Plates%20platform%20is%20live%20and%20ready%20for%20orders!"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-whatsapp"
+                >
+                  <i className="fa-brands fa-whatsapp"></i> WhatsApp Owner Helpline
+                </a>
               </div>
             </div>
           )}
