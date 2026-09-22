@@ -547,20 +547,6 @@ export default function AdminPortal({ onClose, showToast }) {
           >
             <i className="fa-solid fa-images"></i> Media & Showcase
           </button>
-          <button
-            className={`filter-btn ${activeTab === 'handover' ? 'active' : ''}`}
-            onClick={() => setActiveTab('handover')}
-            style={{
-              fontSize: '0.85rem',
-              padding: '8px 14px',
-              background: activeTab === 'handover' ? 'var(--color-earth-amber)' : 'rgba(181, 136, 50, 0.12)',
-              color: activeTab === 'handover' ? '#ffffff' : 'var(--color-earth-amber)',
-              border: '1.5px solid var(--color-earth-amber)',
-              fontWeight: 700
-            }}
-          >
-            <i className="fa-solid fa-circle-question"></i> How Sir Accesses This Site
-          </button>
         </div>
 
         {/* Main Content Area */}
@@ -661,15 +647,17 @@ export default function AdminPortal({ onClose, showToast }) {
                       </div>
 
                       <div style={{ display: 'flex', gap: '8px' }}>
-                        <a
-                          href={`https://wa.me/${inq.phone ? inq.phone.replace(/[^0-9]/g, '') : '916309199939'}?text=Hello%20${encodeURIComponent(inq.name || 'Sir')},%20this%20is%20Ravikanth%20from%20Lasya%20Natural%20Plates.%20Regarding%20your%20wholesale%20inquiry:`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-sm btn-whatsapp"
-                          title="Reply on WhatsApp"
-                        >
-                          <i className="fa-brands fa-whatsapp"></i> Chat
-                        </a>
+                        {inq.phone && (
+                          <a
+                            href={`https://wa.me/${inq.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(inq.name || 'Sir')},%20this%20is%20Ravikanth%20from%20Lasya%20Natural%20Plates.%20Regarding%20your%20wholesale%20inquiry:`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-sm btn-whatsapp"
+                            title="Reply to Customer on WhatsApp"
+                          >
+                            <i className="fa-brands fa-whatsapp"></i> Chat
+                          </a>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -903,202 +891,6 @@ export default function AdminPortal({ onClose, showToast }) {
               <div style={{ marginTop: '20px' }}>
                 <h4 style={{ fontSize: '1.05rem', color: 'var(--color-text-title)', marginBottom: '12px' }}>Live Slideshow Preview</h4>
                 <FactoryGallerySlideshow />
-              </div>
-            </div>
-          )}
-
-          {/* TAB 5: HOW SIR ACCESSES THIS SITE & OFFICIAL CLIENT HANDOVER GUIDE */}
-          {activeTab === 'handover' && (
-            <div>
-              <div style={{ marginBottom: '20px' }}>
-                <span className="pill-badge" style={{ background: 'var(--color-brand-mint)', color: 'var(--color-brand-primary)', marginBottom: '8px' }}>
-                  <i className="fa-solid fa-crown"></i> Official Factory Owner Guide
-                </span>
-                <h3 style={{ fontSize: '1.35rem', color: 'var(--color-text-title)', marginTop: '4px' }}>
-                  How Sir Accesses, Manages & Runs This Website
-                </h3>
-                <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)' }}>
-                  Step-by-step instructions for the business owner to access customer leads, change pricing/stock, and reply via WhatsApp.
-                </p>
-              </div>
-
-              {/* 4 Responsive Handover Cards */}
-              <div className="admin-handover-grid">
-                {/* Step 1 */}
-                <div style={{
-                  background: '#ffffff',
-                  padding: '24px',
-                  borderRadius: 'var(--radius-lg)',
-                  border: '1.5px solid var(--color-border)',
-                  boxShadow: 'var(--shadow-sm)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      background: 'var(--color-brand-mint)',
-                      color: 'var(--color-brand-primary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 800,
-                      fontSize: '1.1rem',
-                      flexShrink: 0
-                    }}>1</span>
-                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
-                      Share the Website Link
-                    </h4>
-                  </div>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    Once deployed to your domain (e.g. <strong>https://lasya-natural-plates.vercel.app</strong>), give Sir this URL. It works seamlessly across all devices — iPhones, Android phones, tablets, and laptops.
-                  </p>
-                </div>
-
-                {/* Step 2 */}
-                <div style={{
-                  background: '#ffffff',
-                  padding: '24px',
-                  borderRadius: 'var(--radius-lg)',
-                  border: '1.5px solid var(--color-border)',
-                  boxShadow: 'var(--shadow-sm)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      background: 'var(--color-brand-mint)',
-                      color: 'var(--color-brand-primary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 800,
-                      fontSize: '1.1rem',
-                      flexShrink: 0
-                    }}>2</span>
-                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
-                      Click "Owner HQ" / Lock Icon
-                    </h4>
-                  </div>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    At the top right of the navigation bar (or inside the mobile hamburger menu / footer), tap the <strong>Lock Icon</strong> or <strong>Owner HQ Portal</strong> button.
-                  </p>
-                </div>
-
-                {/* Step 3 */}
-                <div style={{
-                  background: '#ffffff',
-                  padding: '24px',
-                  borderRadius: 'var(--radius-lg)',
-                  border: '1.5px solid var(--color-border)',
-                  boxShadow: 'var(--shadow-sm)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      background: 'var(--color-brand-mint)',
-                      color: 'var(--color-brand-primary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 800,
-                      fontSize: '1.1rem',
-                      flexShrink: 0
-                    }}>3</span>
-                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
-                      Enter the Secret Passcode
-                    </h4>
-                  </div>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    Sir enters his secret passcode: <code style={{ background: 'var(--color-bg-subtle)', padding: '3px 8px', borderRadius: 'var(--radius-sm)', fontWeight: 700, color: 'var(--color-brand-primary)' }}>{storedPin}</code>. Sir can change this PIN anytime using the <em>"Change PIN"</em> button at top.
-                  </p>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(storedPin);
-                      showToast('Copied!', 'Passcode copied to clipboard', 'success');
-                    }}
-                    className="btn btn-sm btn-secondary"
-                    style={{ alignSelf: 'flex-start', marginTop: '4px' }}
-                  >
-                    <i className="fa-solid fa-copy"></i> Copy Secret Passcode
-                  </button>
-                </div>
-
-                {/* Step 4 */}
-                <div style={{
-                  background: '#ffffff',
-                  padding: '24px',
-                  borderRadius: 'var(--radius-lg)',
-                  border: '1.5px solid var(--color-border)',
-                  boxShadow: 'var(--shadow-sm)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      background: 'var(--color-brand-mint)',
-                      color: 'var(--color-brand-primary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 800,
-                      fontSize: '1.1rem',
-                      flexShrink: 0
-                    }}>4</span>
-                    <h4 style={{ fontSize: '1.1rem', color: 'var(--color-text-title)', margin: 0 }}>
-                      One-Click WhatsApp Direct Reply
-                    </h4>
-                  </div>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
-                    Sir can directly click the green <strong>"Chat on WhatsApp"</strong> button next to any lead to immediately open WhatsApp and send quotations from his mobile phone!
-                  </p>
-                </div>
-              </div>
-
-              {/* Direct Support & Factory Operations Summary Card */}
-              <div style={{
-                background: 'linear-gradient(135deg, var(--color-brand-glow) 0%, #ffffff 100%)',
-                padding: '24px',
-                borderRadius: 'var(--radius-xl)',
-                border: '2px solid var(--color-brand-mint)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '16px'
-              }}>
-                <div>
-                  <h4 style={{ color: 'var(--color-brand-primary)', fontSize: '1.1rem', marginBottom: '6px' }}>
-                    <i className="fa-solid fa-shield-halved"></i> 100% Private, Secure & Server-Backed
-                  </h4>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--color-text-body)', margin: 0, maxWidth: '650px' }}>
-                    All wholesale quotations and sample requests are securely stored and never exposed publicly. The website automatically adapts to all screen resolutions (smartphones, tablets, and 4K displays).
-                  </p>
-                </div>
-                <a
-                  href="https://wa.me/916309199939?text=Hello%20Sir,%20the%20Lasya%20Natural%20Plates%20platform%20is%20live%20and%20ready%20for%20orders!"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-whatsapp"
-                >
-                  <i className="fa-brands fa-whatsapp"></i> WhatsApp Owner Helpline
-                </a>
               </div>
             </div>
           )}
