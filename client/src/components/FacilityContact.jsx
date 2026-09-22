@@ -189,11 +189,11 @@ export default function FacilityContact() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
-              <a href="https://maps.google.com/?q=17.296833,78.437250" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ flex: 1 }}>
+            <div className="facility-action-buttons">
+              <a href="https://maps.google.com/?q=17.296833,78.437250" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
                 <i className="fa-solid fa-location-dot"></i> Open in Google Maps
               </a>
-              <a href="tel:+916309199939" className="btn btn-primary" style={{ flex: 1 }}>
+              <a href="tel:+916309199939" className="btn btn-primary">
                 <i className="fa-solid fa-phone"></i> Call Factory Now
               </a>
             </div>

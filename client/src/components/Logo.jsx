@@ -50,7 +50,7 @@ export default function Logo({ size = 42, showSubtitle = true }) {
           LASYA
         </span>
         {showSubtitle && (
-          <span style={{ 
+          <span className="logo-subtitle" style={{ 
             fontSize: '0.70rem', 
             fontWeight: 700, 
             color: 'var(--color-text-muted)', 

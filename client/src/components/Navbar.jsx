@@ -59,25 +59,12 @@ export default function Navbar({ onOpenAdmin }) {
         </ul>
 
         {/* Call to Action Button */}
-        <div className="header-cta-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div className="header-cta-group">
           <button
             onClick={onOpenAdmin}
             title="Portal Access"
             aria-label="Staff & Owner Portal"
-            style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '50%',
-              background: 'rgba(56, 102, 45, 0.08)',
-              border: '1px solid var(--color-border)',
-              color: 'var(--color-brand-primary)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              fontSize: '0.9rem',
-              transition: 'all 0.2s ease'
-            }}
+            className="nav-lock-btn"
           >
             <i className="fa-solid fa-lock"></i>
           </button>
@@ -86,8 +73,7 @@ export default function Navbar({ onOpenAdmin }) {
             href="https://wa.me/916309199939?text=Hello%20Lasya%20Natural%20Plates,%20I%20would%20like%20to%20inquire%20about%20wholesale%20supply." 
             target="_blank" 
             rel="noopener noreferrer"
-            className="btn btn-whatsapp"
-            style={{ padding: '8px 16px', borderRadius: 'var(--radius-full)' }}
+            className="btn btn-whatsapp nav-inquiry-btn"
           >
             <i className="fa-brands fa-whatsapp"></i> Inquiry
           </a>
