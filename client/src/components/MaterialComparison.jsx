@@ -57,7 +57,7 @@ export default function MaterialComparison() {
         </div>
 
         {/* Comparison Showdown Cards with Smooth Keyed Transition */}
-        <div key={selectedCompetitor} className="comparison-showdown-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', animation: 'comparisonFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+        <div key={selectedCompetitor} className="comparison-showdown-grid" style={{ animation: 'comparisonFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)' }}>
           {/* Conventional Side */}
           <div style={{ background: '#ffffff', borderRadius: 'var(--radius-xl)', padding: '36px', border: '1.5px solid var(--color-border)', boxShadow: 'var(--shadow-sm)', transition: 'all 0.3s ease' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>

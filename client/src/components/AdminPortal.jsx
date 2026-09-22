@@ -926,7 +926,7 @@ export default function AdminPortal({ onClose, showToast }) {
               </div>
 
               {/* Active Media Cards Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '18px', marginBottom: '30px' }}>
+              <div className="admin-media-grid">
                 {galleryMedia.map((item, idx) => (
                   <div
                     key={item.id || idx}

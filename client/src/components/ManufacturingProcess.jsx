@@ -21,7 +21,7 @@ export default function ManufacturingProcess() {
         </div>
 
         {/* Visual Factory Showcase Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '40px' }}>
+        <div className="factory-showcase-grid">
           {/* Card 1: Hydraulic Press Plant */}
           <div style={{ background: '#ffffff', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-md)' }}>
             <div style={{ position: 'relative', height: '240px', overflow: 'hidden' }}>

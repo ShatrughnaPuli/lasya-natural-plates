@@ -77,7 +77,7 @@ export default function FacilityContact() {
           {viewMode === 'slideshow' ? (
             <FactoryGallerySlideshow />
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            <div className="facility-gallery-grid">
               {galleryItems.map((item, idx) => (
                 <div 
                   key={idx}
