@@ -85,11 +85,11 @@ export default function Footer({ onOpenAdmin }) {
             </p>
             <div>
               <button 
-                onClick={() => scrollTo('sample-box')}
+                onClick={() => scrollTo('calculator')}
                 className="btn btn-sm btn-secondary" 
                 style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}
               >
-                Request Sample Box
+                <i className="fa-solid fa-calculator"></i> Get Wholesale Quote
               </button>
             </div>
           </div>

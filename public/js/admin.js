@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const statsRes = await fetch('/api/stats');
       const statsData = await statsRes.json();
       if (statsData.success) {
-        statInquiriesCount.textContent = statsData.stats.totalInquiries;
-        statSamplesCount.textContent = statsData.stats.totalSamples;
-        statPlatesEstimated.textContent = (statsData.stats.estimatedPlatesProduced / 100000).toFixed(1) + ' Lakh';
-        statPlasticSaved.textContent = statsData.stats.plasticKgSaved.toLocaleString('en-IN') + ' kg';
+        if (statInquiriesCount) statInquiriesCount.textContent = statsData.stats.totalInquiries;
+        if (statSamplesCount) statSamplesCount.textContent = statsData.stats.totalSamples;
+        if (statPlatesEstimated) statPlatesEstimated.textContent = (statsData.stats.estimatedPlatesProduced / 100000).toFixed(1) + ' Lakh';
+        if (statPlasticSaved) statPlasticSaved.textContent = statsData.stats.plasticKgSaved.toLocaleString('en-IN') + ' kg';
       }
 
       // 2. Fetch leads
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const leadsData = await leadsRes.json();
 
       if (leadsData.success) {
-        renderInquiries(leadsData.data.inquiries || []);
-        renderSamples(leadsData.data.samples || []);
+        if (inquiriesTableBody) renderInquiries(leadsData.data.inquiries || []);
+        if (samplesTableBody) renderSamples(leadsData.data.samples || []);
       }
     } catch (err) {
       console.error('Failed to load admin leads:', err);

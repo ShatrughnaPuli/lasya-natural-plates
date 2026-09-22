@@ -42,8 +42,8 @@ export default function Hero() {
             <button className="btn btn-lg btn-primary" onClick={() => scrollTo('calculator')}>
               <i className="fa-solid fa-calculator"></i> Wholesale Price Estimator
             </button>
-            <button className="btn btn-lg btn-secondary" onClick={() => scrollTo('sample-box')}>
-              <i className="fa-solid fa-box-open"></i> Request Sample Box
+            <button className="btn btn-lg btn-secondary" onClick={() => scrollTo('products')}>
+              <i className="fa-solid fa-layer-group"></i> Explore Tableware Range
             </button>
           </div>
 

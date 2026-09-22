@@ -926,6 +926,13 @@ img {
   color: var(--color-text-muted);
 }
 
+.factory-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
 .process-steps-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -1611,6 +1618,14 @@ textarea.form-control {
   .facility-grid {
     grid-template-columns: 1fr !important;
   }
+  .process-steps-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px;
+  }
+  .brochure-feature-bullets {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
   .trust-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1740,6 +1755,61 @@ textarea.form-control {
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+
+  .factory-showcase-grid,
+  .impact-visual-cards {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .process-steps-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .process-step-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 20px 16px !important;
+  }
+
+  .brochure-showcase-box {
+    padding: 20px 14px !important;
+    border-radius: var(--radius-lg) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .brochure-header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .brochure-spec-table-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px;
+  }
+
+  .brochure-feature-bullets {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-top: 14px;
+  }
+
+  .brochure-bullet-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 16px !important;
   }
 
   .calc-container,

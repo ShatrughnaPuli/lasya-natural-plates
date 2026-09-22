@@ -534,13 +534,6 @@ export default function AdminPortal({ onClose, showToast }) {
             <i className="fa-solid fa-envelope-open-text"></i> Wholesale Inquiries ({inquiries.length})
           </button>
           <button
-            className={`filter-btn ${activeTab === 'samples' ? 'active' : ''}`}
-            onClick={() => setActiveTab('samples')}
-            style={{ fontSize: '0.85rem', padding: '8px 14px' }}
-          >
-            <i className="fa-solid fa-truck-fast"></i> Sample Requests ({samples.length})
-          </button>
-          <button
             className={`filter-btn ${activeTab === 'inventory' ? 'active' : ''}`}
             onClick={() => setActiveTab('inventory')}
             style={{ fontSize: '0.85rem', padding: '8px 14px' }}
@@ -685,94 +678,7 @@ export default function AdminPortal({ onClose, showToast }) {
             </div>
           )}
 
-          {/* TAB 2: SAMPLE KIT REQUESTS */}
-          {activeTab === 'samples' && (
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
-                <div>
-                  <h3 style={{ fontSize: '1.25rem', color: 'var(--color-text-title)' }}>Physical Sample Dispatch Orders</h3>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-                    Addresses submitted by buyers for physical inspection of 12" and 8" plates.
-                  </span>
-                </div>
-                <button
-                  className="btn btn-sm btn-secondary"
-                  onClick={() => exportToCSV(samples, 'Lasya_Sample_Requests')}
-                >
-                  <i className="fa-solid fa-file-excel"></i> Export CSV
-                </button>
-              </div>
-
-              {filteredSamples.length === 0 ? (
-                <div style={{ background: '#ffffff', padding: '40px', borderRadius: 'var(--radius-lg)', textAlign: 'center', border: '1px dashed var(--color-border)' }}>
-                  <i className="fa-solid fa-box-open" style={{ fontSize: '2.5rem', color: 'var(--color-brand-pale)', marginBottom: '12px' }}></i>
-                  <h4 style={{ color: 'var(--color-text-title)' }}>No Sample Requests Recorded Yet</h4>
-                  <p style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem' }}>
-                    When caterers and hotels request sample boxes, their delivery addresses and contact details will appear here.
-                  </p>
-                </div>
-              ) : (
-                <div style={{ display: 'grid', gap: '14px' }}>
-                  {filteredSamples.map((smp, idx) => (
-                    <div
-                      key={smp.id || idx}
-                      style={{
-                        background: '#ffffff',
-                        padding: '18px 22px',
-                        borderRadius: 'var(--radius-md)',
-                        border: '1px solid var(--color-border)',
-                        boxShadow: 'var(--shadow-sm)'
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-                        <div>
-                          <strong style={{ fontSize: '1.05rem', color: 'var(--color-text-title)' }}>{smp.name}</strong>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--color-brand-secondary)', marginLeft: '10px', fontWeight: 600 }}>
-                            {smp.businessType}
-                          </span>
-                        </div>
-                        <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                          ID: {smp.sampleId || `SMP-${idx + 100}`}
-                        </span>
-                      </div>
-
-                      <div style={{ background: 'var(--color-bg-subtle)', padding: '10px 14px', borderRadius: 'var(--radius-sm)', marginBottom: '12px', fontSize: '0.88rem' }}>
-                        <i className="fa-solid fa-location-dot" style={{ color: 'var(--color-brand-primary)', marginRight: '6px' }}></i>
-                        <strong>Delivery Address:</strong> {smp.address}
-                      </div>
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-                        <span style={{ fontSize: '0.85rem' }}>
-                          <i className="fa-solid fa-phone"></i> <strong>{smp.phone}</strong> &bull; <i className="fa-solid fa-envelope"></i> {smp.email || 'N/A'}
-                        </span>
-                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                          <select
-                            value={smp.status || 'Pending Dispatch'}
-                            onChange={(e) => updateStatus('samples', smp.id, e.target.value)}
-                            style={{ padding: '4px 8px', fontSize: '0.78rem', fontWeight: 700, borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)' }}
-                          >
-                            <option value="Pending Dispatch">⏳ Pending Dispatch</option>
-                            <option value="Courier Dispatched">🚚 Courier Dispatched</option>
-                            <option value="Delivered">✅ Delivered</option>
-                          </select>
-                          <a
-                            href={`https://wa.me/${smp.phone ? smp.phone.replace(/[^0-9]/g, '') : '916309199939'}?text=Hello%20${encodeURIComponent(smp.name || 'Sir')},%20this%20is%20Lasya%20Natural%20Plates.%20Your%20sample%20kit%20has%20been%20registered:`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-sm btn-whatsapp"
-                          >
-                            <i className="fa-brands fa-whatsapp"></i> WhatsApp Buyer
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* TAB 3: LIVE FACTORY STOCK TRACKER (Fully Editable) */}
+          {/* TAB 2: LIVE FACTORY STOCK TRACKER (Fully Editable) */}
           {activeTab === 'inventory' && (
             <div>
               <div style={{ marginBottom: '20px' }}>

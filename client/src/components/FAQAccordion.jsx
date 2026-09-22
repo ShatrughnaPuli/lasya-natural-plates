@@ -25,8 +25,8 @@ export default function FAQAccordion() {
       a: 'Lasya plates have a shelf life of 18–24 months when stored in a dry, ventilated environment away from direct moisture. Every master carton is vacuum/shrink-wrapped with food-grade moisture absorbers.'
     },
     {
-      q: 'How fast can a physical sample box be delivered to my address?',
-      a: 'Sample kits are packed and dispatched within 24 hours of request submission from our Jalpally, Hyderabad facility via express courier.'
+      q: 'Can we order custom sizes, Dona bowls, or branded packaging for our business?',
+      a: 'Yes, we manufacture standard sizes (14", 12", 10", 8" plates and 4.5" Dona leaf bowls) as well as custom wholesale carton packaging with private labeling and custom shrink wraps for large commercial and export orders.'
     }
   ];
 

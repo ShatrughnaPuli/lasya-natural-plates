@@ -9,7 +9,6 @@ import WholesaleCalculator from './components/WholesaleCalculator';
 import EcoImpact from './components/EcoImpact';
 import ManufacturingProcess from './components/ManufacturingProcess';
 import BrochureSection from './components/BrochureSection';
-import SampleKitSection from './components/SampleKitSection';
 import FAQAccordion from './components/FAQAccordion';
 import FacilityContact from './components/FacilityContact';
 import QuotationModal from './components/QuotationModal';
@@ -70,9 +69,6 @@ export default function App() {
         <EcoImpact />
         <ManufacturingProcess />
         <BrochureSection />
-        <SampleKitSection 
-          showToast={showToast} 
-        />
         <FAQAccordion />
         <FacilityContact />
       </main>
