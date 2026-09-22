@@ -72,9 +72,9 @@ export default function QuotationModal({ isOpen, onClose, quoteData, showToast }
           width: '100%',
           maxWidth: '600px',
           borderRadius: 'var(--radius-xl)',
-          padding: '36px',
+          padding: 'clamp(20px, 4vw, 36px)',
           position: 'relative',
-          maxHeight: '90vh',
+          maxHeight: '90dvh',
           overflowY: 'auto',
           boxShadow: 'var(--shadow-lg)',
           border: '2px solid var(--color-brand-pale)'

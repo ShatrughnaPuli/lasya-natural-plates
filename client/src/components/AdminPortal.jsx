@@ -418,13 +418,14 @@ export default function AdminPortal({ onClose, showToast }) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '16px'
+      padding: 'max(12px, env(safe-area-inset-top, 12px)) max(12px, env(safe-area-inset-right, 12px)) max(12px, env(safe-area-inset-bottom, 12px)) max(12px, env(safe-area-inset-left, 12px))'
     }}>
       <div style={{
         background: '#f8faf5',
         width: '100%',
         maxWidth: '1200px',
-        height: '92vh',
+        maxHeight: '94dvh',
+        height: '94dvh',
         borderRadius: 'var(--radius-xl)',
         display: 'flex',
         flexDirection: 'column',
