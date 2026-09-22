@@ -1389,6 +1389,64 @@ textarea.form-control {
    RESPONSIVE MEDIA QUERIES (Cross-Platform & Mobile Optimization)
    ========================================================================== */
 
+/* Base Grid Layouts */
+.visualizer-calc-container,
+.sample-calc-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.sample-calc-container {
+  grid-template-columns: 1fr 1.1fr;
+}
+
+.visualizer-canvas-pane,
+.sample-info-pane,
+.sample-form-pane,
+.visualizer-specs-pane {
+  padding: 40px;
+}
+
+.visualizer-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.hero-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.hero-trust-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.comparison-metrics-subgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.admin-lead-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (Cross-Platform & Mobile Optimization)
+   ========================================================================== */
+
 /* Large Tablets & Small Laptops (<= 1024px) */
 @media (max-width: 1024px) {
   .hero-grid {
@@ -1405,7 +1463,10 @@ textarea.form-control {
   .hero-ctas {
     justify-content: center;
   }
-  .calc-container, .facility-grid {
+  .calc-container,
+  .visualizer-calc-container,
+  .sample-calc-container,
+  .facility-grid {
     grid-template-columns: 1fr !important;
   }
   .trust-grid {
@@ -1524,8 +1585,29 @@ textarea.form-control {
     gap: 30px;
   }
 
-  .calc-summary-pane, .calc-interactive-pane {
+  .calc-container,
+  .visualizer-calc-container,
+  .sample-calc-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .calc-summary-pane,
+  .calc-interactive-pane,
+  .visualizer-canvas-pane,
+  .visualizer-specs-pane,
+  .sample-info-pane,
+  .sample-form-pane {
     padding: 24px 18px !important;
+  }
+
+  .hero-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .admin-lead-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
 
@@ -1560,6 +1642,13 @@ textarea.form-control {
 
   .trust-grid {
     grid-template-columns: 1fr;
+  }
+
+  .visualizer-specs-grid,
+  .hero-trust-cards-grid,
+  .comparison-metrics-subgrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .product-filter-bar {

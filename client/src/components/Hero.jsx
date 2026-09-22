@@ -48,10 +48,7 @@ export default function Hero() {
           </div>
 
           {/* Quick Metrics Bar with interactive click */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '14px',
+          <div className="hero-metrics-grid" style={{
             marginTop: '16px',
             paddingTop: '20px',
             borderTop: '1px solid var(--color-border)'
@@ -130,7 +127,7 @@ export default function Hero() {
             </div>
 
             {/* Interactive Bottom Trust Strip with Zero Overflow */}
-            <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div className="hero-trust-cards-grid" style={{ width: '100%' }}>
               <div 
                 onClick={() => setActiveModal('leakProof')}
                 style={{

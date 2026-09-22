@@ -105,7 +105,7 @@ export default function MaterialComparison() {
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', textAlign: 'center' }}>
+            <div className="comparison-metrics-subgrid">
               <div style={{ background: 'rgba(255,255,255,0.7)', padding: '10px 6px', borderRadius: 'var(--radius-md)' }}>
                 <strong style={{ display: 'block', color: 'var(--color-brand-primary)', fontSize: '1.1rem' }}>-20° to +180°</strong>
                 <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Thermal Range</span>

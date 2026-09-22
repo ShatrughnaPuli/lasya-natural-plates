@@ -1337,7 +1337,7 @@ textarea.form-control {
    ========================================================================== */
 @media (max-width: 1024px) {
   .hero-grid, .calc-container, .facility-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   .trust-grid, .process-steps-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1348,25 +1348,37 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+  .site-header, .header-inner {
+    height: 72px;
+  }
   .nav-menu {
     display: none;
     position: absolute;
-    top: 84px;
+    top: 72px;
     left: 0;
     width: 100%;
     background: #ffffff;
     flex-direction: column;
-    padding: 24px;
+    padding: 20px 24px;
     box-shadow: var(--shadow-md);
+    border-bottom: 2px solid var(--color-brand-mint);
   }
   .nav-menu.open {
     display: flex;
   }
   .mobile-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .hero-section {
+    padding-top: 105px;
+    padding-bottom: 45px;
   }
   .hero-title {
-    font-size: 2.3rem;
+    font-size: clamp(2rem, 6vw, 2.5rem);
   }
   .trust-grid, .process-steps-grid, .impact-visual-cards, .brochure-feature-bullets {
     grid-template-columns: 1fr;
@@ -1375,7 +1387,7 @@ textarea.form-control {
     grid-template-columns: 1fr;
   }
   .calc-interactive-pane, .calc-summary-pane {
-    padding: 24px;
+    padding: 20px 16px !important;
   }
   .floating-eco-badge {
     position: static;
@@ -1383,5 +1395,34 @@ textarea.form-control {
   }
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+  .hero-title {
+    font-size: 1.85rem;
+  }
+  .hero-lead {
+    font-size: 0.95rem;
+  }
+  .hero-ctas {
+    flex-direction: column;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+  }
+  .btn {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+  .product-filter-bar {
+    gap: 8px;
+  }
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 0.82rem;
   }
 }

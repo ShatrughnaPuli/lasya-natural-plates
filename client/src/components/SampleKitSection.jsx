@@ -48,16 +48,16 @@ export default function SampleKitSection({ showToast }) {
   return (
     <section className="section" id="sample-box" style={{ background: 'var(--color-bg-subtle)' }}>
       <div className="container">
-        <div className="calc-container" style={{ gridTemplateColumns: '1fr 1.1fr' }}>
-          <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <div className="calc-container sample-calc-container">
+          <div className="sample-info-pane" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <span className="section-subtitle">Experience the Quality</span>
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '16px' }}>Request a Physical Sample Kit</h2>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.2rem)', marginBottom: '16px' }}>Request a Physical Sample Kit</h2>
             <p style={{ color: 'var(--color-text-body)', marginBottom: '20px', lineHeight: '1.7' }}>
               We understand B2B buyers, wedding planners, and exporters need to inspect leaf thickness, weight, and finish before placing bulk orders.
             </p>
             
             {/* Real Sample Pack Preview Card */}
-            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', background: '#ffffff', padding: '12px', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', marginBottom: '20px', boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', background: '#ffffff', padding: '12px', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', marginBottom: '20px', boxShadow: 'var(--shadow-sm)', flexWrap: 'wrap' }}>
               <img 
                 src="/images/finished_plates_packaged.jpg" 
                 alt="Packaged Sample Bundle" 
@@ -83,7 +83,7 @@ export default function SampleKitSection({ showToast }) {
             </div>
           </div>
 
-          <div style={{ padding: '40px', background: '#ffffff' }}>
+          <div className="sample-form-pane" style={{ background: '#ffffff' }}>
             <form onSubmit={handleSubmit}>
               <h3 style={{ color: 'var(--color-text-title)', marginBottom: '20px', fontSize: '1.3rem' }}>
                 Enter Sample Delivery Details

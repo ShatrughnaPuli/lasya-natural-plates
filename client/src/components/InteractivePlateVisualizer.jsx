@@ -126,16 +126,15 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
         </div>
 
         {/* Studio Canvas Box */}
-        <div className="calc-container" style={{ gridTemplateColumns: '1.2fr 0.8fr', background: '#ffffff', minHeight: '480px' }}>
+        <div className="calc-container visualizer-calc-container" style={{ background: '#ffffff' }}>
           
           {/* Interactive Rendering Canvas */}
-          <div style={{ 
+          <div className="visualizer-canvas-pane" style={{ 
             background: 'radial-gradient(circle at center, #f4f9f0 0%, #e3ede0 100%)', 
             display: 'flex', 
             flexDirection: 'column', 
             alignItems: 'center', 
             justifyContent: 'center',
-            padding: '40px',
             position: 'relative',
             overflow: 'hidden'
           }}>
@@ -234,7 +233,7 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
           </div>
 
           {/* Specs & Food Compatibility Panel */}
-          <div style={{ padding: '36px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div className="visualizer-specs-pane" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <div className="pill-badge" style={{ marginBottom: '10px' }}>
                 <i className="fa-solid fa-circle-check"></i> {current.badge}
@@ -246,7 +245,7 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
                 {current.description}
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '18px' }}>
+              <div className="visualizer-specs-grid" style={{ marginBottom: '18px' }}>
                 <div style={{ background: 'var(--color-bg-subtle)', padding: '10px', borderRadius: 'var(--radius-md)' }}>
                   <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>Rim Depth:</span>
                   <strong style={{ color: 'var(--color-text-title)', fontSize: '0.88rem' }}>{current.depth}</strong>

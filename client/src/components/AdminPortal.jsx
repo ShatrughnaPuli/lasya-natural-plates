@@ -629,14 +629,13 @@ export default function AdminPortal({ onClose, showToast }) {
                   {filteredInquiries.map((inq, idx) => (
                     <div
                       key={inq.id || idx}
+                      className="admin-lead-grid"
                       style={{
                         background: '#ffffff',
                         padding: '18px 22px',
                         borderRadius: 'var(--radius-md)',
                         border: '1px solid var(--color-border)',
                         boxShadow: 'var(--shadow-sm)',
-                        display: 'grid',
-                        gridTemplateColumns: '1.5fr 1fr 1fr 1fr auto',
                         alignItems: 'center',
                         gap: '16px'
                       }}
