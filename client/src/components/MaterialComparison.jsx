@@ -59,15 +59,20 @@ export default function MaterialComparison() {
         {/* Comparison Showdown Cards with Smooth Keyed Transition */}
         <div key={selectedCompetitor} className="comparison-showdown-grid" style={{ animation: 'comparisonFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)' }}>
           {/* Conventional Side */}
-          <div style={{ background: '#ffffff', borderRadius: 'var(--radius-xl)', padding: '36px', border: '1.5px solid var(--color-border)', boxShadow: 'var(--shadow-sm)', transition: 'all 0.3s ease' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f5e8e0', color: '#9e4624', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
-                <i className="fa-solid fa-triangle-exclamation"></i>
+          <div className="comparison-card" style={{ background: '#ffffff', borderRadius: 'var(--radius-xl)', padding: '32px 28px', border: '1.5px solid var(--color-border)', boxShadow: 'var(--shadow-sm)', transition: 'all 0.3s ease' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f5e8e0', color: '#9e4624', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
+                  <i className="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.15rem', color: 'var(--color-text-title)', margin: 0 }}>{comp.name}</h3>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>Conventional Tableware</span>
+                </div>
               </div>
-              <div>
-                <h3 style={{ fontSize: '1.2rem', color: 'var(--color-text-title)', margin: 0 }}>{comp.name}</h3>
-                <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>Conventional Tableware</span>
-              </div>
+              <span className="pill-badge" style={{ background: '#f5e8e0', color: '#9e4624', border: '1px solid #e8c8b8', margin: 0 }}>
+                <i className="fa-solid fa-ban"></i> Harmful
+              </span>
             </div>
 
             <ul style={{ listStyle: 'none', margin: '20px 0' }}>
@@ -81,19 +86,20 @@ export default function MaterialComparison() {
           </div>
 
           {/* Lasya Leaf Side */}
-          <div style={{ background: 'linear-gradient(145deg, #ffffff, var(--color-brand-glow))', borderRadius: 'var(--radius-xl)', padding: '36px', border: '2px solid var(--color-brand-secondary)', boxShadow: 'var(--shadow-md)', position: 'relative', transition: 'all 0.3s ease' }}>
-            <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
-              <span className="pill-badge"><i className="fa-solid fa-crown"></i> Superior Choice</span>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--color-brand-mint)', color: 'var(--color-brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
-                <i className="fa-solid fa-leaf"></i>
+          <div className="comparison-card" style={{ background: 'linear-gradient(145deg, #ffffff, var(--color-brand-glow))', borderRadius: 'var(--radius-xl)', padding: '32px 28px', border: '2px solid var(--color-brand-secondary)', boxShadow: 'var(--shadow-md)', transition: 'all 0.3s ease' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--color-brand-mint)', color: 'var(--color-brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>
+                  <i className="fa-solid fa-leaf"></i>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.15rem', color: 'var(--color-brand-primary)', margin: 0 }}>Lasya Natural Leaf Plates</h3>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--color-brand-secondary)', fontWeight: 700 }}>100% Fallen Palm Sheath</span>
+                </div>
               </div>
-              <div>
-                <h3 style={{ fontSize: '1.2rem', color: 'var(--color-brand-primary)', margin: 0 }}>Lasya Natural Leaf Plates</h3>
-                <span style={{ fontSize: '0.78rem', color: 'var(--color-brand-secondary)', fontWeight: 700 }}>100% Fallen Palm Sheath</span>
-              </div>
+              <span className="pill-badge" style={{ margin: 0 }}>
+                <i className="fa-solid fa-crown"></i> Superior Choice
+              </span>
             </div>
 
             <div style={{ background: '#ffffff', padding: '18px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--color-border-light)', marginBottom: '20px' }}>

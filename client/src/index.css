@@ -1796,6 +1796,12 @@ textarea.form-control {
     width: 100% !important;
   }
 
+  .comparison-card {
+    padding: 20px 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
   .process-steps-grid {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
