@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 const DEFAULT_SLIDES = [
   {
@@ -61,6 +62,31 @@ export default function FactoryGallerySlideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Close fullscreen on ESC key and lock body scroll
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isFullscreen) {
+        setIsFullscreen(false);
+      } else if (isFullscreen && e.key === 'ArrowRight') {
+        setCurrentIndex((prev) => (prev + 1) % slides.length);
+      } else if (isFullscreen && e.key === 'ArrowLeft') {
+        setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+      }
+    };
+
+    if (isFullscreen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isFullscreen, slides.length]);
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -199,7 +225,7 @@ export default function FactoryGallerySlideshow() {
               <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'}`}></i>
             </button>
             <button
-              onClick={() => setIsFullscreen(!isFullscreen)}
+              onClick={() => setIsFullscreen(true)}
               style={{
                 background: 'rgba(0, 0, 0, 0.5)',
                 backdropFilter: 'blur(6px)',
@@ -330,45 +356,153 @@ export default function FactoryGallerySlideshow() {
         ))}
       </div>
 
-      {/* Fullscreen Modal View */}
-      {isFullscreen && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(0, 0, 0, 0.95)',
-          zIndex: 4000,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '24px'
-        }}>
-          <button
-            onClick={() => setIsFullscreen(false)}
-            style={{
-              position: 'absolute',
-              top: '20px',
-              right: '24px',
-              background: 'none',
-              border: 'none',
-              color: '#ffffff',
-              fontSize: '1.8rem',
-              cursor: 'pointer'
-            }}
-          >
-            <i className="fa-solid fa-xmark"></i>
-          </button>
+      {/* Fullscreen Modal View rendered via Portal to escape any overflow:hidden or modal container clipping */}
+      {isFullscreen && createPortal(
+        <div 
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsFullscreen(false);
+          }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(5, 12, 4, 0.96)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            zIndex: 99999,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '20px',
+            animation: 'fadeIn 0.25s ease-out'
+          }}
+        >
+          {/* Top Bar with Clear Exit Button & Counter */}
+          <div style={{ width: '100%', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 10 }}>
+            <button
+              onClick={() => setIsFullscreen(false)}
+              className="btn btn-sm btn-secondary"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.15)',
+                color: '#ffffff',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                padding: '8px 18px',
+                borderRadius: 'var(--radius-full)',
+                fontWeight: 700,
+                fontSize: '0.9rem',
+                cursor: 'pointer'
+              }}
+            >
+              <i className="fa-solid fa-arrow-left"></i> Exit Fullscreen (Esc)
+            </button>
 
-          <div style={{ maxWidth: '900px', width: '100%', textAlign: 'center' }}>
-            {isVideo ? (
-              <video src={currentSlide.image} controls autoPlay loop style={{ maxHeight: '68vh', maxWidth: '100%', borderRadius: 'var(--radius-lg)', boxShadow: '0 10px 40px rgba(0,0,0,0.8)' }} />
-            ) : (
-              <img src={currentSlide.image} alt={currentSlide.title} style={{ maxHeight: '68vh', maxWidth: '100%', borderRadius: 'var(--radius-lg)', boxShadow: '0 10px 40px rgba(0,0,0,0.8)' }} />
-            )}
-            <h3 style={{ color: '#ffffff', marginTop: '16px', fontSize: '1.3rem' }}>{currentSlide.title}</h3>
-            <p style={{ color: '#c4d7c0', fontSize: '0.88rem', marginTop: '4px' }}>{currentSlide.desc}</p>
+            <span style={{ color: 'var(--color-brand-mint)', fontSize: '0.9rem', fontWeight: 700, background: 'rgba(0,0,0,0.5)', padding: '6px 14px', borderRadius: 'var(--radius-full)' }}>
+              {safeIndex + 1} / {slides.length} &bull; {currentSlide.title}
+            </span>
+
+            <button
+              onClick={() => setIsFullscreen(false)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                color: '#ffffff',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.4rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              title="Close Fullscreen (Esc)"
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </button>
           </div>
-        </div>
+
+          {/* Fullscreen Media Stage with Nav Arrows */}
+          <div style={{ position: 'relative', width: '100%', maxWidth: '1100px', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '14px 0' }}>
+            <button
+              onClick={prevSlide}
+              style={{
+                position: 'absolute',
+                left: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(0,0,0,0.6)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                color: '#ffffff',
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.3rem',
+                cursor: 'pointer',
+                zIndex: 20
+              }}
+              title="Previous Slide (Left Arrow)"
+            >
+              <i className="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div style={{ maxWidth: '100%', maxHeight: '72vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              {isVideo ? (
+                <video 
+                  src={currentSlide.image} 
+                  controls 
+                  autoPlay 
+                  loop 
+                  style={{ maxHeight: '70vh', maxWidth: '100%', borderRadius: 'var(--radius-lg)', boxShadow: '0 16px 50px rgba(0,0,0,0.9)' }} 
+                />
+              ) : (
+                <img 
+                  src={currentSlide.image} 
+                  alt={currentSlide.title} 
+                  style={{ maxHeight: '70vh', maxWidth: '100%', objectFit: 'contain', borderRadius: 'var(--radius-lg)', boxShadow: '0 16px 50px rgba(0,0,0,0.9)' }} 
+                />
+              )}
+            </div>
+
+            <button
+              onClick={nextSlide}
+              style={{
+                position: 'absolute',
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(0,0,0,0.6)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                color: '#ffffff',
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.3rem',
+                cursor: 'pointer',
+                zIndex: 20
+              }}
+              title="Next Slide (Right Arrow)"
+            >
+              <i className="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          {/* Bottom Caption */}
+          <div style={{ width: '100%', maxWidth: '850px', textAlign: 'center', color: '#ffffff' }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff', margin: '0 0 4px 0' }}>{currentSlide.title}</h3>
+            <p style={{ color: '#c4d7c0', fontSize: '0.88rem', margin: 0, lineHeight: 1.4 }}>{currentSlide.desc}</p>
+          </div>
+        </div>,
+        document.body
       )}
     </div>
   );

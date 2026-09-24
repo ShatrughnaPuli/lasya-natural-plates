@@ -50,13 +50,7 @@ const DEFAULT_GALLERY_ITEMS = [
 ];
 
 export default function AdminPortal({ onClose, showToast }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    try {
-      return sessionStorage.getItem('lasya_owner_authenticated') === 'true';
-    } catch (e) {
-      return false;
-    }
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
   const [activeTab, setActiveTab] = useState('inquiries'); // 'inquiries', 'samples', 'inventory', 'slideshow'
@@ -122,9 +116,6 @@ export default function AdminPortal({ onClose, showToast }) {
     
     // Strict passcode validation
     if (cleanInput === currentStored || cleanInput === 'lasyanaturalplates@2026' || cleanInput === 'lasyanaturalplates2026') {
-      try {
-        sessionStorage.setItem('lasya_owner_authenticated', 'true');
-      } catch (err) {}
       setIsAuthenticated(true);
       setPinError(false);
       fetchAdminData();
@@ -136,11 +127,15 @@ export default function AdminPortal({ onClose, showToast }) {
   };
 
   const handleLogout = () => {
-    try {
-      sessionStorage.removeItem('lasya_owner_authenticated');
-    } catch (e) {}
     setIsAuthenticated(false);
+    setPinInput('');
     showToast('Portal Locked', 'Session locked successfully.', 'info');
+  };
+
+  const handleClose = () => {
+    setIsAuthenticated(false);
+    setPinInput('');
+    onClose();
   };
 
   const handleSavePin = (e) => {
@@ -326,7 +321,7 @@ export default function AdminPortal({ onClose, showToast }) {
           position: 'relative'
         }}>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             style={{
               position: 'absolute',
               top: '18px',
@@ -476,7 +471,7 @@ export default function AdminPortal({ onClose, showToast }) {
               <i className="fa-solid fa-lock"></i> Lock
             </button>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               style={{
                 background: 'rgba(255,255,255,0.2)',
                 border: 'none',
