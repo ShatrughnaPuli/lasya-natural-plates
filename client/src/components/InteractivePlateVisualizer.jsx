@@ -263,32 +263,32 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
                 {current.description}
               </p>
 
-              <div className="visualizer-specs-grid" style={{ marginBottom: '18px' }}>
-                <div style={{ background: 'var(--color-bg-subtle)', padding: '10px', borderRadius: 'var(--radius-md)' }}>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>Rim Depth:</span>
-                  <strong style={{ color: 'var(--color-text-title)', fontSize: '0.88rem' }}>{current.depth}</strong>
+              <div className="visualizer-specs-grid">
+                <div className="visualizer-spec-card">
+                  <span className="visualizer-spec-label">Rim Depth</span>
+                  <strong className="visualizer-spec-val">{current.depth}</strong>
                 </div>
-                <div style={{ background: 'var(--color-bg-subtle)', padding: '10px', borderRadius: 'var(--radius-md)' }}>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>Leaf Thickness:</span>
-                  <strong style={{ color: 'var(--color-text-title)', fontSize: '0.88rem' }}>{current.thickness}</strong>
+                <div className="visualizer-spec-card">
+                  <span className="visualizer-spec-label">Leaf Thickness</span>
+                  <strong className="visualizer-spec-val">{current.thickness}</strong>
                 </div>
-                <div style={{ background: 'var(--color-bg-subtle)', padding: '10px', borderRadius: 'var(--radius-md)', gridColumn: 'span 2' }}>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>Packaging Standard:</span>
-                  <strong style={{ color: 'var(--color-brand-primary)', fontSize: '0.88rem' }}>{current.packCount}</strong>
+                <div className="visualizer-spec-card visualizer-spec-card-wide">
+                  <span className="visualizer-spec-label">Packaging Standard</span>
+                  <strong className="visualizer-spec-val" style={{ color: 'var(--color-brand-primary)' }}>{current.packCount}</strong>
                 </div>
               </div>
 
-              <h4 style={{ fontSize: '0.92rem', color: 'var(--color-text-title)', marginBottom: '8px' }}>
-                <i className="fa-solid fa-utensils" style={{ color: 'var(--color-brand-secondary)' }}></i> Ideal Food Pairings:
+              <h4 style={{ fontSize: '0.90rem', color: 'var(--color-text-title)', marginBottom: '8px' }}>
+                <i className="fa-solid fa-utensils" style={{ color: 'var(--color-brand-secondary)', marginRight: '4px' }}></i> Ideal Food Pairings:
               </h4>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '18px' }}>
                 {current.idealDishes.map((dish, i) => (
                   <span key={i} style={{ 
-                    padding: '4px 10px', 
+                    padding: '4px 9px', 
                     background: 'var(--color-brand-mint)', 
                     color: 'var(--color-brand-primary)', 
                     borderRadius: 'var(--radius-full)', 
-                    fontSize: '0.78rem', 
+                    fontSize: '0.75rem', 
                     fontWeight: 600 
                   }}>
                     {dish}
@@ -297,7 +297,7 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
               <button 
                 className="btn btn-primary" 
                 style={{ flex: 1 }}

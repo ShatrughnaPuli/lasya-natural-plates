@@ -24,31 +24,31 @@ export default function BrochureSection() {
 
         <div className="brochure-showcase-box">
           <div className="brochure-header-inner">
-            <div>
-              <h3 style={{ color: 'var(--color-brand-primary)', fontSize: '1.6rem' }}>
+            <div className="brochure-title-block">
+              <h3 style={{ color: 'var(--color-brand-primary)', fontSize: 'clamp(1.3rem, 3.5vw, 1.6rem)', marginBottom: '4px' }}>
                 Lasya Natural Plates - Master B2B Catalog
               </h3>
-              <p style={{ color: 'var(--color-text-muted)' }}>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: 'clamp(0.82rem, 2.2vw, 0.95rem)' }}>
                 Standard Export & Domestic Packaging Master List
               </p>
             </div>
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              <button className="btn btn-secondary" onClick={() => handleOpenBrochure(false)}>
+            <div className="brochure-header-actions">
+              <button className="btn btn-secondary btn-sm" onClick={() => handleOpenBrochure(false)}>
                 <i className="fa-solid fa-file-lines"></i> View Full Brochure
               </button>
-              <button className="btn btn-primary" onClick={() => handleOpenBrochure(true)}>
+              <button className="btn btn-primary btn-sm" onClick={() => handleOpenBrochure(true)}>
                 <i className="fa-solid fa-download"></i> Save / Print PDF
               </button>
             </div>
           </div>
 
-          <div style={{ overflowX: 'auto' }}>
+          <div className="brochure-spec-table-wrap">
             <table className="brochure-spec-table">
               <thead>
                 <tr>
                   <th>Item Code</th>
                   <th>Product Description</th>
-                  <th>Dimensions (Inches / cm)</th>
+                  <th>Dimensions</th>
                   <th>Shape / Type</th>
                   <th>Units / Carton</th>
                   <th>Food Compatibility</th>
@@ -57,12 +57,12 @@ export default function BrochureSection() {
               <tbody>
                 {specs.map((s, idx) => (
                   <tr key={idx}>
-                    <td><strong>{s.code}</strong></td>
-                    <td>{s.name}</td>
+                    <td><strong style={{ color: 'var(--color-brand-primary)' }}>{s.code}</strong></td>
+                    <td style={{ fontWeight: 600 }}>{s.name}</td>
                     <td>{s.dims}</td>
                     <td>{s.shape}</td>
-                    <td>{s.carton}</td>
-                    <td>{s.use}</td>
+                    <td><span className="spec-carton-badge">{s.carton}</span></td>
+                    <td style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>{s.use}</td>
                   </tr>
                 ))}
               </tbody>

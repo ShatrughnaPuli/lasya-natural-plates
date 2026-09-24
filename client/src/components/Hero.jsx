@@ -20,11 +20,11 @@ export default function Hero() {
     <section className="hero-section" id="home">
       <div className="container hero-grid">
         <div className="hero-content">
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div className="hero-badges-wrapper" style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '8px' }}>
             <span className="pill-badge">
               <i className="fa-solid fa-leaf"></i> 100% Fallen Areca Leaf Tableware
             </span>
-            <span className="pill-badge" style={{ background: 'var(--color-bg-subtle)', borderColor: 'var(--color-border)' }}>
+            <span className="pill-badge pill-badge-outline">
               <i className="fa-solid fa-industry"></i> Direct Manufacturer • Jalpally
             </span>
           </div>

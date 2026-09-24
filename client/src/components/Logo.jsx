@@ -4,6 +4,7 @@ export default function Logo({ size = 42, showSubtitle = true }) {
   return (
     <div className="brand-logo-custom" style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
       <div 
+        className="brand-logo-icon"
         style={{
           width: `${size}px`,
           height: `${size}px`,
@@ -40,9 +41,8 @@ export default function Logo({ size = 42, showSubtitle = true }) {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
-        <span style={{ 
+        <span className="brand-title-text" style={{ 
           fontFamily: 'var(--font-heading)', 
-          fontSize: size > 40 ? '1.45rem' : '1.2rem', 
           fontWeight: 800, 
           letterSpacing: '-0.3px', 
           color: 'var(--color-brand-primary)' 

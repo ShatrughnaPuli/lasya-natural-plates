@@ -1,9 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import FactoryGallerySlideshow from './FactoryGallerySlideshow';
 
 export default function FacilityContact() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [viewMode, setViewMode] = useState('slideshow'); // 'slideshow' or 'grid'
+  const [viewMode, setViewMode] = useState('grid'); // Default to 'grid' as requested
+
+  // Preload gallery images on mount so they appear instantaneously upon click
+  useEffect(() => {
+    galleryItems.forEach(item => {
+      const img = new Image();
+      img.src = item.src;
+    });
+  }, []);
+
+  // Close lightbox on Escape key and lock body scroll
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && selectedImage) {
+        setSelectedImage(null);
+      }
+    };
+
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedImage]);
 
   const galleryItems = [
     {
@@ -58,18 +88,18 @@ export default function FacilityContact() {
             
             <div style={{ display: 'flex', gap: '8px' }}>
               <button
-                className={`filter-btn ${viewMode === 'slideshow' ? 'active' : ''}`}
-                onClick={() => setViewMode('slideshow')}
-                style={{ fontSize: '0.8rem', padding: '6px 14px' }}
-              >
-                <i className="fa-solid fa-play"></i> Live Slideshow
-              </button>
-              <button
                 className={`filter-btn ${viewMode === 'grid' ? 'active' : ''}`}
                 onClick={() => setViewMode('grid')}
                 style={{ fontSize: '0.8rem', padding: '6px 14px' }}
               >
                 <i className="fa-solid fa-grip"></i> Photo Grid
+              </button>
+              <button
+                className={`filter-btn ${viewMode === 'slideshow' ? 'active' : ''}`}
+                onClick={() => setViewMode('slideshow')}
+                style={{ fontSize: '0.8rem', padding: '6px 14px' }}
+              >
+                <i className="fa-solid fa-play"></i> Live Slideshow
               </button>
             </div>
           </div>
@@ -210,31 +240,36 @@ export default function FacilityContact() {
           </div>
         </div>
 
-        {/* Fullscreen Lightbox Modal */}
-        {selectedImage && (
+        {/* Fullscreen Lightbox Modal via Portal to avoid clipping */}
+        {selectedImage && createPortal(
           <div 
             style={{
               position: 'fixed',
               inset: 0,
-              background: 'rgba(15, 30, 13, 0.85)',
-              backdropFilter: 'blur(8px)',
-              zIndex: 3500,
+              background: 'rgba(5, 12, 4, 0.95)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              zIndex: 99999,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '24px'
+              padding: '16px',
+              animation: 'fadeIn 0.25s ease-out'
             }}
             onClick={() => setSelectedImage(null)}
           >
             <div 
               style={{
                 background: '#ffffff',
-                maxWidth: '780px',
+                maxWidth: '750px',
                 width: '100%',
+                maxHeight: '90vh',
                 borderRadius: 'var(--radius-xl)',
                 overflow: 'hidden',
-                boxShadow: 'var(--shadow-lg)',
-                position: 'relative'
+                boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column'
               }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -242,44 +277,50 @@ export default function FacilityContact() {
                 onClick={() => setSelectedImage(null)}
                 style={{
                   position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  background: 'rgba(0,0,0,0.5)',
+                  top: '12px',
+                  right: '12px',
+                  background: 'rgba(0,0,0,0.6)',
                   color: '#ffffff',
-                  border: 'none',
+                  border: '1px solid rgba(255,255,255,0.3)',
                   borderRadius: '50%',
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  fontSize: '1.1rem',
-                  zIndex: 10
+                  fontSize: '1.2rem',
+                  zIndex: 20
                 }}
+                title="Close (Esc)"
               >
                 <i className="fa-solid fa-xmark"></i>
               </button>
 
-              <img 
-                src={selectedImage.src} 
-                alt={selectedImage.title} 
-                style={{ width: '100%', maxHeight: '520px', objectFit: 'contain', background: '#112210' }}
-              />
+              <div style={{ width: '100%', height: 'min(45vh, 340px)', background: '#0a1608', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', flexShrink: 0 }}>
+                <img 
+                  src={selectedImage.src} 
+                  alt={selectedImage.title} 
+                  loading="eager"
+                  decoding="sync"
+                  style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
+                />
+              </div>
 
-              <div style={{ padding: '24px' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--color-brand-secondary)', fontWeight: 700, textTransform: 'uppercase' }}>
+              <div style={{ padding: '16px 20px', overflowY: 'auto' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--color-brand-secondary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   {selectedImage.tag}
                 </span>
-                <h3 style={{ fontSize: '1.3rem', color: 'var(--color-text-title)', marginTop: '4px', marginBottom: '8px' }}>
+                <h3 style={{ fontSize: '1.25rem', color: 'var(--color-text-title)', marginTop: '4px', marginBottom: '6px' }}>
                   {selectedImage.title}
                 </h3>
-                <p style={{ fontSize: '0.92rem', color: 'var(--color-text-body)', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '0.88rem', color: 'var(--color-text-body)', lineHeight: 1.5, margin: 0 }}>
                   {selectedImage.desc}
                 </p>
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </section>
