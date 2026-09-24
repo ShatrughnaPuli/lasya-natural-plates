@@ -35,25 +35,25 @@ export default function MaterialComparison() {
         </div>
 
         {/* Competitor Selector */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '36px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '30px', flexWrap: 'wrap' }}>
           <button 
             className={`filter-btn ${selectedCompetitor === 'plastic' ? 'active' : ''}`}
             onClick={() => setSelectedCompetitor('plastic')}
-            style={{ transition: 'all 0.3s ease' }}
+            style={{ fontSize: 'clamp(0.78rem, 2.2vw, 0.90rem)', padding: '8px 14px', transition: 'all 0.3s ease' }}
           >
             vs. Plastic Plates
           </button>
           <button 
             className={`filter-btn ${selectedCompetitor === 'thermocol' ? 'active' : ''}`}
             onClick={() => setSelectedCompetitor('thermocol')}
-            style={{ transition: 'all 0.3s ease' }}
+            style={{ fontSize: 'clamp(0.78rem, 2.2vw, 0.90rem)', padding: '8px 14px', transition: 'all 0.3s ease' }}
           >
             vs. Thermocol / Styrofoam
           </button>
           <button 
             className={`filter-btn ${selectedCompetitor === 'paper' ? 'active' : ''}`}
             onClick={() => setSelectedCompetitor('paper')}
-            style={{ transition: 'all 0.3s ease' }}
+            style={{ fontSize: 'clamp(0.78rem, 2.2vw, 0.90rem)', padding: '8px 14px', transition: 'all 0.3s ease' }}
           >
             vs. Wax Paper Plates
           </button>

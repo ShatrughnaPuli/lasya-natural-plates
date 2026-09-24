@@ -95,32 +95,32 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
   const current = plates[selectedPlateIndex];
 
   return (
-    <section className="section" id="interactive-studio" style={{ background: 'var(--color-bg)' }}>
+    <section className="section" id="products" style={{ background: 'var(--color-bg)' }}>
       <div className="container">
         <div className="section-header">
-          <span className="section-subtitle">Interactive 3D Visualizer</span>
+          <span className="section-subtitle">Interactive 3D Product Studio</span>
           <h2 className="section-title">Explore Our Tableware Sizes & Dona Bowls</h2>
           <p className="section-desc">
-            We manufacture different sizes like <strong>14", 12", 10", 8" plates</strong> and <strong>4.5" Dona Leaf Bowls</strong> — precision moulded from 100% naturally shed areca palm leaves.
+            Direct from our Hyderabad unit: 100% natural areca leaf tableware in <strong>14", 12", 10", 8" plates</strong> and <strong>4.5" Dona Bowls</strong> — precision thermo-moulded with zero chemicals.
           </p>
         </div>
 
         {/* Selection Pills */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '32px' }}>
+        <div className="product-filter-bar" style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '30px' }}>
           {plates.map((plate, index) => (
             <button
               key={plate.id}
               className={`filter-btn ${selectedPlateIndex === index ? 'active' : ''}`}
               onClick={() => setSelectedPlateIndex(index)}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.92rem', padding: '10px 18px', transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: 'clamp(0.78rem, 2.2vw, 0.90rem)', padding: '8px 14px', transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
               {plate.isBowl ? (
-                <i className="fa-solid fa-bowl-food" style={{ color: selectedPlateIndex === index ? '#ffffff' : 'var(--color-brand-secondary)', fontSize: '0.95rem' }}></i>
+                <i className="fa-solid fa-bowl-food" style={{ color: selectedPlateIndex === index ? '#ffffff' : 'var(--color-brand-secondary)', fontSize: '0.85rem' }}></i>
               ) : (
-                <i className="fa-solid fa-circle" style={{ fontSize: `${0.65 + ((plate.sizeInch - 8) / 6) * 0.45}rem` }}></i>
+                <i className="fa-solid fa-circle" style={{ fontSize: `${0.55 + ((plate.sizeInch - 8) / 6) * 0.35}rem` }}></i>
               )}
               <strong>{plate.name.split(' ')[0]} {plate.isBowl ? 'Dona Bowl' : 'Plate'}</strong>
-              <span style={{ fontSize: '0.75rem', opacity: 0.85 }}>({plate.sizeInch}")</span>
+              <span style={{ fontSize: '0.72rem', opacity: 0.85 }}>({plate.sizeInch}")</span>
             </button>
           ))}
         </div>

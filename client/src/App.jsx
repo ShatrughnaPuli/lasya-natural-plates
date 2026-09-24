@@ -3,7 +3,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
 import InteractivePlateVisualizer from './components/InteractivePlateVisualizer';
-import ProductCatalog from './components/ProductCatalog';
 import MaterialComparison from './components/MaterialComparison';
 import WholesaleCalculator from './components/WholesaleCalculator';
 import EcoImpact from './components/EcoImpact';
@@ -55,9 +54,6 @@ export default function App() {
         <Hero />
         <TrustBar />
         <InteractivePlateVisualizer 
-          onSelectProduct={handleSelectProduct} 
-        />
-        <ProductCatalog 
           onSelectProduct={handleSelectProduct} 
         />
         <MaterialComparison />
