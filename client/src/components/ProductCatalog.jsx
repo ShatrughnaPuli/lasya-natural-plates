@@ -3,16 +3,6 @@ import ProductPlateGraphic from './ProductPlateGraphic';
 
 export default function ProductCatalog({ onSelectProduct }) {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [isFiltering, setIsFiltering] = useState(false);
-
-  const handleFilterChange = (filter) => {
-    if (filter === activeFilter || isFiltering) return;
-    setIsFiltering(true);
-    setTimeout(() => {
-      setActiveFilter(filter);
-      setIsFiltering(false);
-    }, 260);
-  };
 
   const products = [
     {
@@ -153,56 +143,54 @@ export default function ProductCatalog({ onSelectProduct }) {
         <div className="product-filter-bar">
           <button 
             className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-            onClick={() => handleFilterChange('all')}
-            style={{ transition: 'all 0.2s ease' }}
+            onClick={() => setActiveFilter('all')}
+            style={{ transition: 'all 0.3s ease' }}
           >
             All Sizes & Items
           </button>
           <button 
             className={`filter-btn ${activeFilter === '14' ? 'active' : ''}`}
-            onClick={() => handleFilterChange('14')}
-            style={{ transition: 'all 0.2s ease' }}
+            onClick={() => setActiveFilter('14')}
+            style={{ transition: 'all 0.3s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '1.10rem' }}></i> 14" Grand Thali
           </button>
           <button 
             className={`filter-btn ${activeFilter === '12' ? 'active' : ''}`}
-            onClick={() => handleFilterChange('12')}
-            style={{ transition: 'all 0.2s ease' }}
+            onClick={() => setActiveFilter('12')}
+            style={{ transition: 'all 0.3s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '0.95rem' }}></i> 12" Large Buffet
           </button>
           <button 
             className={`filter-btn ${activeFilter === '10' ? 'active' : ''}`}
-            onClick={() => handleFilterChange('10')}
-            style={{ transition: 'all 0.2s ease' }}
+            onClick={() => setActiveFilter('10')}
+            style={{ transition: 'all 0.3s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '0.80rem' }}></i> 10" Medium Lunch
           </button>
           <button 
             className={`filter-btn ${activeFilter === '8' ? 'active' : ''}`}
-            onClick={() => handleFilterChange('8')}
-            style={{ transition: 'all 0.2s ease' }}
+            onClick={() => setActiveFilter('8')}
+            style={{ transition: 'all 0.3s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '0.65rem' }}></i> 8" Small Snack
           </button>
           <button 
             className={`filter-btn ${activeFilter === 'bowls' ? 'active' : ''}`}
-            onClick={() => handleFilterChange('bowls')}
-            style={{ transition: 'all 0.2s ease' }}
+            onClick={() => setActiveFilter('bowls')}
+            style={{ transition: 'all 0.3s ease' }}
           >
             <i className="fa-solid fa-bowl-food"></i> 4.5" Dona Bowls
           </button>
         </div>
 
-        {/* Product Cards Grid with Micro-Transition */}
+        {/* Product Cards Grid with Smooth 0.65s CSS Reveal */}
         <div 
           key={activeFilter} 
           className="product-grid"
           style={{
-            animation: 'comparisonFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1)',
-            opacity: isFiltering ? 0.4 : 1,
-            transition: 'opacity 0.2s ease'
+            animation: 'comparisonFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
           {filteredProducts.map(product => (

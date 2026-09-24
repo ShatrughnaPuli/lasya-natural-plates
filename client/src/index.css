@@ -1383,6 +1383,39 @@ textarea.form-control {
   to { transform: translateX(0); opacity: 1; }
 }
 
+@keyframes comparisonFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes smoothPlateReveal {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes smoothSpecsFade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Admin Dashboard Styles */
 .admin-badge {
   display: inline-block;
