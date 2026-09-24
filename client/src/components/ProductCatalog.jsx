@@ -3,6 +3,16 @@ import ProductPlateGraphic from './ProductPlateGraphic';
 
 export default function ProductCatalog({ onSelectProduct }) {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [isFiltering, setIsFiltering] = useState(false);
+
+  const handleFilterChange = (filter) => {
+    if (filter === activeFilter || isFiltering) return;
+    setIsFiltering(true);
+    setTimeout(() => {
+      setActiveFilter(filter);
+      setIsFiltering(false);
+    }, 260);
+  };
 
   const products = [
     {
@@ -143,44 +153,58 @@ export default function ProductCatalog({ onSelectProduct }) {
         <div className="product-filter-bar">
           <button 
             className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('all')}
+            onClick={() => handleFilterChange('all')}
+            style={{ transition: 'all 0.2s ease' }}
           >
             All Sizes & Items
           </button>
           <button 
             className={`filter-btn ${activeFilter === '14' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('14')}
+            onClick={() => handleFilterChange('14')}
+            style={{ transition: 'all 0.2s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '1.10rem' }}></i> 14" Grand Thali
           </button>
           <button 
             className={`filter-btn ${activeFilter === '12' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('12')}
+            onClick={() => handleFilterChange('12')}
+            style={{ transition: 'all 0.2s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '0.95rem' }}></i> 12" Large Buffet
           </button>
           <button 
             className={`filter-btn ${activeFilter === '10' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('10')}
+            onClick={() => handleFilterChange('10')}
+            style={{ transition: 'all 0.2s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '0.80rem' }}></i> 10" Medium Lunch
           </button>
           <button 
             className={`filter-btn ${activeFilter === '8' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('8')}
+            onClick={() => handleFilterChange('8')}
+            style={{ transition: 'all 0.2s ease' }}
           >
             <i className="fa-solid fa-circle" style={{ fontSize: '0.65rem' }}></i> 8" Small Snack
           </button>
           <button 
             className={`filter-btn ${activeFilter === 'bowls' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('bowls')}
+            onClick={() => handleFilterChange('bowls')}
+            style={{ transition: 'all 0.2s ease' }}
           >
             <i className="fa-solid fa-bowl-food"></i> 4.5" Dona Bowls
           </button>
         </div>
 
-        {/* Product Cards Grid */}
-        <div className="product-grid">
+        {/* Product Cards Grid with Micro-Transition */}
+        <div 
+          key={activeFilter} 
+          className="product-grid"
+          style={{
+            animation: 'comparisonFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1)',
+            opacity: isFiltering ? 0.4 : 1,
+            transition: 'opacity 0.2s ease'
+          }}
+        >
           {filteredProducts.map(product => (
             <div className="product-card" key={product.id}>
               <div className="product-img-box" style={{ background: 'radial-gradient(circle at center, #f4faf0 0%, #e2efe0 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '210px' }}>

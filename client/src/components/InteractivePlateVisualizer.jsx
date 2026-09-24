@@ -3,6 +3,25 @@ import React, { useState } from 'react';
 export default function InteractivePlateVisualizer({ onSelectProduct }) {
   const [selectedPlateIndex, setSelectedPlateIndex] = useState(1); // Default to 12"
   const [viewMode, setViewMode] = useState('single'); // 'single' or 'stack'
+  const [isSwitching, setIsSwitching] = useState(false);
+
+  const handlePlateChange = (index) => {
+    if (index === selectedPlateIndex || isSwitching) return;
+    setIsSwitching(true);
+    setTimeout(() => {
+      setSelectedPlateIndex(index);
+      setIsSwitching(false);
+    }, 380); // 380ms provides the perfect tactile feel without being sluggish
+  };
+
+  const handleViewModeChange = (mode) => {
+    if (mode === viewMode || isSwitching) return;
+    setIsSwitching(true);
+    setTimeout(() => {
+      setViewMode(mode);
+      setIsSwitching(false);
+    }, 280);
+  };
 
   const plates = [
     {
@@ -111,8 +130,8 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
             <button
               key={plate.id}
               className={`filter-btn ${selectedPlateIndex === index ? 'active' : ''}`}
-              onClick={() => setSelectedPlateIndex(index)}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.92rem', padding: '10px 18px' }}
+              onClick={() => handlePlateChange(index)}
+              style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.92rem', padding: '10px 18px', transition: 'all 0.25s ease' }}
             >
               {plate.isBowl ? (
                 <i className="fa-solid fa-bowl-food" style={{ color: selectedPlateIndex === index ? '#ffffff' : 'var(--color-brand-secondary)', fontSize: '0.95rem' }}></i>
@@ -126,7 +145,7 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
         </div>
 
         {/* Studio Canvas Box */}
-        <div className="calc-container visualizer-calc-container" style={{ background: '#ffffff' }}>
+        <div className="calc-container visualizer-calc-container" style={{ background: '#ffffff', position: 'relative' }}>
           
           {/* Interactive Rendering Canvas */}
           <div className="visualizer-canvas-pane" style={{ 
@@ -134,14 +153,15 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
             display: 'flex', 
             flexDirection: 'column', 
             alignItems: 'center', 
-            justifyContent: 'center',
-            position: 'relative',
-            overflow: 'hidden'
+            justifyContent: 'center', 
+            position: 'relative', 
+            overflow: 'hidden',
+            minHeight: '380px'
           }}>
             {/* View Mode Toggle */}
             <div style={{ position: 'absolute', top: '16px', left: '16px', display: 'flex', gap: '8px', zIndex: 10 }}>
               <button 
-                onClick={() => setViewMode('single')}
+                onClick={() => handleViewModeChange('single')}
                 style={{
                   padding: '6px 14px',
                   borderRadius: 'var(--radius-full)',
@@ -150,13 +170,14 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
                   color: viewMode === 'single' ? '#ffffff' : 'var(--color-text-body)',
                   fontSize: '0.8rem',
                   fontWeight: 700,
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 <i className="fa-solid fa-circle"></i> Single Item
               </button>
               <button 
-                onClick={() => setViewMode('stack')}
+                onClick={() => handleViewModeChange('stack')}
                 style={{
                   padding: '6px 14px',
                   borderRadius: 'var(--radius-full)',
@@ -165,15 +186,45 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
                   color: viewMode === 'stack' ? '#ffffff' : 'var(--color-text-body)',
                   fontSize: '0.8rem',
                   fontWeight: 700,
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 <i className="fa-solid fa-layer-group"></i> Wholesale Pack ({current.isBowl ? '50x' : '25x'})
               </button>
             </div>
 
+            {/* Switching Calibration Overlay */}
+            {isSwitching && (
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'rgba(244, 249, 240, 0.72)',
+                backdropFilter: 'blur(3px)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                zIndex: 20,
+                animation: 'fadeIn 0.2s ease'
+              }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  border: '3px solid rgba(87, 138, 72, 0.25)',
+                  borderTopColor: 'var(--color-brand-primary)',
+                  borderRadius: '50%',
+                  animation: 'spin 0.6s linear infinite'
+                }} />
+                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-brand-primary)', letterSpacing: '0.3px' }}>
+                  Calibrating 3D Leaf Dimensions...
+                </span>
+              </div>
+            )}
+
             {/* Scale Indicator */}
-            <div style={{ position: 'absolute', bottom: '16px', left: '16px', fontSize: '0.82rem', color: 'var(--color-text-muted)', fontWeight: 600, background: 'rgba(255,255,255,0.85)', padding: '4px 10px', borderRadius: 'var(--radius-sm)' }}>
+            <div style={{ position: 'absolute', bottom: '16px', left: '16px', fontSize: '0.82rem', color: 'var(--color-text-muted)', fontWeight: 600, background: 'rgba(255,255,255,0.85)', padding: '4px 10px', borderRadius: 'var(--radius-sm)', zIndex: 10 }}>
               <i className="fa-solid fa-ruler-horizontal"></i> Real Dimensions: {current.sizeInch}" Diameter ({current.sizeCm})
             </div>
 
@@ -199,7 +250,12 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
                 justifyContent: 'center',
                 position: 'relative',
                 transition: 'all 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
-                transform: viewMode === 'stack' ? 'rotateX(25deg) rotateY(-10deg) scale(0.95)' : 'rotate(0deg)',
+                transform: isSwitching 
+                  ? 'scale(0.92) rotate(-3deg)' 
+                  : viewMode === 'stack' 
+                    ? 'rotateX(25deg) rotateY(-10deg) scale(0.95)' 
+                    : 'rotate(0deg) scale(1)',
+                opacity: isSwitching ? 0.6 : 1
               }}
             >
               {/* Natural Leaf Texture Organic Veins */}
@@ -235,7 +291,16 @@ export default function InteractivePlateVisualizer({ onSelectProduct }) {
           </div>
 
           {/* Specs & Food Compatibility Panel */}
-          <div className="visualizer-specs-pane" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div 
+            key={current.id} 
+            className="visualizer-specs-pane" 
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'space-between',
+              animation: 'comparisonFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
             <div>
               <div className="pill-badge" style={{ marginBottom: '10px' }}>
                 <i className="fa-solid fa-circle-check"></i> {current.badge}

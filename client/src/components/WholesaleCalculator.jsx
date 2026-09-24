@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 export default function WholesaleCalculator({ onOpenQuoteModal, selectedProducts, setSelectedProducts }) {
   const [quantity, setQuantity] = useState(5000);
   const [region, setRegion] = useState('Pan India');
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const triggerUpdateAnim = () => {
+    setIsUpdating(true);
+    setTimeout(() => setIsUpdating(false), 240);
+  };
 
   const productOptions = [
     { name: '14" Grand Round Thali Plate', desc: 'Royal Feasts, Grand Thalis & Banquets' },
@@ -14,6 +20,7 @@ export default function WholesaleCalculator({ onOpenQuoteModal, selectedProducts
   ];
 
   const toggleProduct = (name) => {
+    triggerUpdateAnim();
     if (selectedProducts.includes(name)) {
       setSelectedProducts(selectedProducts.filter(p => p !== name));
     } else {
@@ -99,7 +106,10 @@ export default function WholesaleCalculator({ onOpenQuoteModal, selectedProducts
                 max="50000" 
                 step="500" 
                 value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+                onChange={(e) => {
+                  triggerUpdateAnim();
+                  setQuantity(parseInt(e.target.value, 10));
+                }}
               />
             </div>
 
@@ -110,7 +120,10 @@ export default function WholesaleCalculator({ onOpenQuoteModal, selectedProducts
               <div 
                 className={`plate-select-card ${region === 'Pan India' ? 'active' : ''}`}
                 style={{ flex: 1 }}
-                onClick={() => setRegion('Pan India')}
+                onClick={() => {
+                  triggerUpdateAnim();
+                  setRegion('Pan India');
+                }}
               >
                 <input 
                   type="radio" 
@@ -127,7 +140,10 @@ export default function WholesaleCalculator({ onOpenQuoteModal, selectedProducts
               <div 
                 className={`plate-select-card ${region === 'International Export' ? 'active' : ''}`}
                 style={{ flex: 1 }}
-                onClick={() => setRegion('International Export')}
+                onClick={() => {
+                  triggerUpdateAnim();
+                  setRegion('International Export');
+                }}
               >
                 <input 
                   type="radio" 
@@ -146,11 +162,18 @@ export default function WholesaleCalculator({ onOpenQuoteModal, selectedProducts
           {/* Summary Pane */}
           <div className="calc-summary-pane">
             <div>
-              <h3 className="calc-step-title">
-                <i className="fa-solid fa-file-invoice-dollar"></i> Wholesale Estimation
-              </h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                <h3 className="calc-step-title" style={{ margin: 0 }}>
+                  <i className="fa-solid fa-file-invoice-dollar"></i> Wholesale Estimation
+                </h3>
+                {isUpdating && (
+                  <span style={{ fontSize: '0.72rem', color: 'var(--color-brand-secondary)', fontWeight: 700, animation: 'fadeIn 0.2s ease' }}>
+                    <i className="fa-solid fa-arrows-rotate fa-spin"></i> Calculating...
+                  </span>
+                )}
+              </div>
               
-              <div className="calc-output-box">
+              <div className="calc-output-box" style={{ opacity: isUpdating ? 0.65 : 1, transition: 'opacity 0.2s ease' }}>
                 <div className="calc-output-row">
                   <span>Selected Products:</span>
                   <strong>{selectedProducts.length} Categories</strong>

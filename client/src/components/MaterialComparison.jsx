@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 
 export default function MaterialComparison() {
   const [selectedCompetitor, setSelectedCompetitor] = useState('plastic');
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  const handleSelectCompetitor = (competitorKey) => {
+    if (competitorKey === selectedCompetitor || isAnalyzing) return;
+    setIsAnalyzing(true);
+    setTimeout(() => {
+      setSelectedCompetitor(competitorKey);
+      setIsAnalyzing(false);
+    }, 360); // 360ms provides a satisfying, tangible eco-audit sensation
+  };
 
   const comparisonData = {
     plastic: {
@@ -38,26 +48,68 @@ export default function MaterialComparison() {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '36px', flexWrap: 'wrap' }}>
           <button 
             className={`filter-btn ${selectedCompetitor === 'plastic' ? 'active' : ''}`}
-            onClick={() => setSelectedCompetitor('plastic')}
+            onClick={() => handleSelectCompetitor('plastic')}
+            style={{ transition: 'all 0.25s ease' }}
           >
             vs. Plastic Plates
           </button>
           <button 
             className={`filter-btn ${selectedCompetitor === 'thermocol' ? 'active' : ''}`}
-            onClick={() => setSelectedCompetitor('thermocol')}
+            onClick={() => handleSelectCompetitor('thermocol')}
+            style={{ transition: 'all 0.25s ease' }}
           >
             vs. Thermocol / Styrofoam
           </button>
           <button 
             className={`filter-btn ${selectedCompetitor === 'paper' ? 'active' : ''}`}
-            onClick={() => setSelectedCompetitor('paper')}
+            onClick={() => handleSelectCompetitor('paper')}
+            style={{ transition: 'all 0.25s ease' }}
           >
             vs. Wax Paper Plates
           </button>
         </div>
 
-        {/* Comparison Showdown Cards with Smooth Keyed Transition */}
-        <div key={selectedCompetitor} className="comparison-showdown-grid" style={{ animation: 'comparisonFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+        {/* Comparison Showdown Container with Active Analysis Indicator */}
+        <div style={{ position: 'relative', minHeight: '360px' }}>
+          {isAnalyzing && (
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'rgba(247, 249, 245, 0.85)',
+              backdropFilter: 'blur(3px)',
+              borderRadius: 'var(--radius-xl)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+              zIndex: 15,
+              animation: 'fadeIn 0.2s ease'
+            }}>
+              <div style={{
+                width: '36px',
+                height: '36px',
+                border: '3px solid rgba(87, 138, 72, 0.2)',
+                borderTopColor: 'var(--color-brand-secondary)',
+                borderRadius: '50%',
+                animation: 'spin 0.55s linear infinite'
+              }} />
+              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-brand-primary)' }}>
+                Comparing Material Sustainability & Heat Leaching Data...
+              </span>
+            </div>
+          )}
+
+          {/* Comparison Showdown Cards with Smooth Keyed Transition */}
+          <div 
+            key={selectedCompetitor} 
+            className="comparison-showdown-grid" 
+            style={{ 
+              animation: 'comparisonFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+              opacity: isAnalyzing ? 0.4 : 1,
+              transition: 'opacity 0.2s ease'
+            }}
+          >
           {/* Conventional Side */}
           <div className="comparison-card" style={{ background: '#ffffff', borderRadius: 'var(--radius-xl)', padding: '32px 28px', border: '1.5px solid var(--color-border)', boxShadow: 'var(--shadow-sm)', transition: 'all 0.3s ease' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '16px' }}>
@@ -127,6 +179,7 @@ export default function MaterialComparison() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
